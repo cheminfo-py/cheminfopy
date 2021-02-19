@@ -1,6 +1,6 @@
 # c6h6py
 
-> A Python interface to interact with the cheminfo electronic lab notebook
+> A Python interface to interact with the [cheminfo electronic lab notebook](https://cheminfo.github.io/eln.epfl.ch/)
 
 The data schema of the ELN is described on a [separate webpage](https://cheminfo.github.io/data_schema/).
 
