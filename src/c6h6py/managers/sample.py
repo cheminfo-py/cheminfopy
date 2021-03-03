@@ -14,10 +14,10 @@ class Sample(Manager):
         super().__init__(*args, **kwargs)
         self._sample_toc = None
 
-    def post_attachment(self, attachment_type: str, name: str, filecontent):
+    def put_attachment(self, attachment_type: str, name: str, filecontent):
         query_path = f"entry/{self.sample_uuid}/spectra/{attachment_type}/{name}"
         url = urljoin(self.instance, query_path)
-        self.requester.post_file(url, data=filecontent)
+        self.requester.put_file(url, data=filecontent)
 
     def get_attachment(self, attachment_type: str, name: str):
         query_path = f"entry/{self.sample_uuid}/spectra/{attachment_type}/{name}"
@@ -70,9 +70,14 @@ class Sample(Manager):
         return toc["$owners"]
 
     def _get_toc(self):
-        if self._sample_toc is None:
-            query_path = f"entry/{self.sample_uuid}"
-            url = urljoin(self.instance, query_path)
-            self._sample_toc = self.requester.get(url)
+
+        query_path = f"entry/{self.sample_uuid}"
+        url = urljoin(self.instance, query_path)
+        self._sample_toc = self.requester.get(url)
 
         return self._sample_toc
+
+    def _update_toc(self):
+        query_path = f"entry/{self.sample_uuid}"
+        url = urljoin(self.instance, query_path)
+        self._sample_toc = self.requester.post(url)

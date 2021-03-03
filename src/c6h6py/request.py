@@ -43,8 +43,8 @@ class ELNRequest:
     def post(self):
         ...
 
-    def post_file(self, url: str, data: str):
-        response = self._make_request("POST", url, data=data)
+    def put_file(self, url: str, data: str):
+        response = self._make_request("PUT", url, data=data)
         return response
 
     def get(self, url: str):
