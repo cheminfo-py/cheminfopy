@@ -17,7 +17,7 @@ class Sample(Manager):
     def put_attachment(self, attachment_type: str, name: str, filecontent):
         query_path = f"entry/{self.sample_uuid}/spectra/{attachment_type}/{name}"
         url = urljoin(self.instance, query_path)
-        self.requester.put_file(url, data=filecontent)
+        self.requester.put(url, data=filecontent)
 
     def get_attachment(self, attachment_type: str, name: str):
         query_path = f"entry/{self.sample_uuid}/spectra/{attachment_type}/{name}"
@@ -77,7 +77,8 @@ class Sample(Manager):
 
         return self._sample_toc
 
-    def _update_toc(self):
+    def _update_toc(self, new_toc):
         query_path = f"entry/{self.sample_uuid}"
         url = urljoin(self.instance, query_path)
-        self._sample_toc = self.requester.post(url)
+        print(url)
+        self._sample_toc = self.requester.put(url, data=new_toc)
