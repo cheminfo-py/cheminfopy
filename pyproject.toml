@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "c6h6py"
+name = "cheminfopy"
 version = "0.1.0"
-description = ""
+description = "cheminfopy is a SDK that provides a high-level interface to the rest-on-couch API that powers the cheminfo ELN"
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/cheminfo-py/c6h6py"
-repository = "https://github.com/cheminfo-py/c6h6py"
+homepage = "https://github.com/cheminfopy/c6h6py"
+repository = "https://github.com/cheminfopy/c6h6py"
 keywords = ["ELN", "API", "data", "chemistry"]
 authors = ["Kevin M. Jablonka <kevin.jablonka@epfl.ch>"]
 
