@@ -13,3 +13,4 @@ class User(Manager):
         query_path = "_query/sample_toc"
         url = urljoin(self.instance, query_path)
         return self.requester.get(url)
+

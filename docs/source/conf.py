@@ -15,11 +15,11 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(".."))
-from c6h6py import __version__
+from cheminfopy import __version__
 
 # -- Project information -----------------------------------------------------
 
-project = "c6h6py"
+project = "cheminfopy"
 copyright = "2021, Kevin Maik Jablonka"
 author = "Kevin Maik Jablonka"
 
@@ -68,7 +68,7 @@ numfig = True
 # a list of builtin themes.
 #
 html_theme = "sphinx_book_theme"
-#html_logo = "../pyepal_logo.png"
+# html_logo = "../pyepal_logo.png"
 
 # Register the theme as an extension to generate a sitemap.xml
 

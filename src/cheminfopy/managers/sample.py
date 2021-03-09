@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from typing import Union
 from urllib.parse import urljoin
-from .utils import _get_attachment_json
+
 from .manager import Manager
+from .utils import _get_attachment_json
 
 __all__ = ["Sample"]
 
@@ -14,13 +16,19 @@ class Sample(Manager):
         super().__init__(*args, **kwargs)
         self._sample_toc = None
 
-    def put_attachment(self, attachment_type: str, name: str, filecontent):
+    def put_attachment(
+        self,
+        attachment_type: str,
+        name: str,
+        filecontent,
+        source_info: Union[dict, None] = None,
+    ):
         query_path = f"entry/{self.sample_uuid}/spectra/{attachment_type}/{name}"
         url = urljoin(self.instance, query_path)
         self.requester.put(url, data=filecontent)
         self.requester.put(
             urljoin(self.instance, f"entry/{self.sample_uuid}/"),
-            data=_get_attachment_json(self.revision, attachment_type, name),
+            data=_get_attachment_json(attachment_type, name, source_info),
         )
 
     def get_attachment(self, attachment_type: str, name: str):
@@ -112,5 +120,4 @@ class Sample(Manager):
     def _update_toc(self, new_toc):
         query_path = f"entry/{self.sample_uuid}"
         url = urljoin(self.instance, query_path)
-        print(url)
         self._sample_toc = self.requester.put(url, data=new_toc)
