@@ -1,5 +1,4 @@
-Sphinx 
+Sphinx
 sphinx-book-theme
 sphinx-autodoc-typehints
-sphinx-copybutton 
-
+sphinx-copybutton

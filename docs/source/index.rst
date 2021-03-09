@@ -6,12 +6,15 @@
 cheminfopy: Providing a Python interface to the cheminfo ELN
 ===============================================================
 
+cheminfopy provides a Python interface to the cheminfo ELN. You can retrieve sample information, add spectra and also interact with reactions.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    getting_started
    api
+
 
 Indices and tables
 ==================
