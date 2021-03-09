@@ -19,7 +19,7 @@ UserManager
     :members:
     :show-inheritance:
     :special-members:
-    
+
 
 ExperimentManager
 ...................
@@ -28,7 +28,7 @@ ExperimentManager
     :members:
     :show-inheritance:
     :special-members:
-    
+
 
 Manager base class
 ...................
@@ -37,7 +37,7 @@ Manager base class
     :members:
     :show-inheritance:
     :special-members:
-    
+
 
 Requester
 ...............
