@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Implementing the basic logic for requests the rest-on-couch API"""
 import json
 import logging
 from typing import Dict, Tuple
@@ -13,9 +14,22 @@ METHOD_MAP: Dict[str, Tuple] = {
     "PUT": (requests.put, {}),
 }
 
+__all__ = ["ELNRequest"]
+
 
 class ELNRequest:
-    def __init__(self, token):
+    """Class that runs the actual request using token authentication."""
+
+    def __init__(self, token: str):
+        """
+
+        Args:
+            token (str): Token string. Can be any kind of token (user/entry)
+                with any rights. If the token does not have suitable rights, 
+                the library will raise and Exception. 
+                Tokens can be generated in the ELN using the "Access Token" 
+                view
+        """
         self.token = token
         self.params = {"token": self.token}
         self.logger = logging.getLogger("ELNRequestLogger")
@@ -33,7 +47,7 @@ class ELNRequest:
         requests_method, headers = METHOD_MAP[verb.upper()]
         return requests_method, headers
 
-    def _make_request(self, verb: str, url: str, **kwargs):
+    def _make_request(self, verb: str, url: str, **kwargs) -> requests.Response:
         method, headers = self._get_header(verb)
         request = method(url, headers=headers, params=self.params, **kwargs)
         if not request.ok:
@@ -41,16 +55,33 @@ class ELNRequest:
         return request
 
     def post(self):
-        ...
+        raise NotImplementedError("POST requests are currently not supported")
 
-    def put(self, url: str, data: str):
+    def put(self, url: str, data: object) -> requests.Response:
+        """Make a PUT request to the URL with the provided data
+
+        Args:
+            url (str): URL to which the request should be made
+            data (object): Some data to be sent with the request
+
+        Returns:
+            [requests.Response]: Response of the request
+        """
         response = self._make_request("PUT", url, data=data)
         return response
 
-    def get(self, url: str):
+    def get(self, url: str) -> requests.Response:
+        """Make a GET request to the URL 
+
+        Args:
+            url (str): URL to which the request should be made
+
+        Returns:
+            requests.Response: Response of the request
+        """
         response = self._make_request("GET", url)
         return json.loads(response.text)
 
-    def get_file(self, url: str):
+    def get_file(self, url: str) -> requests.Response:
         response = self._make_request("GET", url)
         return response

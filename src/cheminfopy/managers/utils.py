@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
-
-DEFAULT_SOURCE_DICT = {
-    "name": "cheminfopy",
-    "url": "https://github.com/cheminfo-py/c6h6py",
-    "doi": "",
-    "uuid": "",
-}
+from ..constants import DEFAULT_SOURCE_DICT
+from ..errors import InvalidSourceError
 
 
 def _get_attachment_json(type, filename, source_dict=None):
@@ -14,10 +9,12 @@ def _get_attachment_json(type, filename, source_dict=None):
         source_dict = DEFAULT_SOURCE_DICT
     else:
         for k, v in source_dict.items():
-            assert (
-                k in DEFAULT_SOURCE_DICT.keys()
-            ), f"Allowed source keys ares {DEFAULT_SOURCE_DICT.keys()}"
-            assert isinstance(v, str), "source values must be strings"
+            if k not in DEFAULT_SOURCE_DICT.keys():
+                raise InvalidSourceError(
+                    f"Invalid source key {k}. Allowed source keys ares {DEFAULT_SOURCE_DICT.keys()}"
+                )
+            if not isinstance(v, str):
+                raise InvalidSourceError("Source values must be strings")
 
     extension = Path(filename).suffix
     return {
