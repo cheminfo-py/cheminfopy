@@ -2,6 +2,5 @@ High-level overview
 =======================
 
 
-Interacting with a sample 
+Interacting with a sample
 ----------------------------
-
