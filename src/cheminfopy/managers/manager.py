@@ -4,6 +4,12 @@ from ..request import ELNRequest
 __all__ = ["Manager"]
 
 
+def _sanitize_instance(instance):
+    if instance[-1] != "/":
+        instance += "/"
+    return instance
+
+
 class Manager:
     """Base class for all managers"""
 
@@ -22,6 +28,6 @@ class Manager:
                 Tokens can be generated in the ELN using the "Access Token"
                 view
         """
-        self.instance = instance
+        self.instance = _sanitize_instance(instance)
         self.token = token
         self.requester = ELNRequest(self.token)

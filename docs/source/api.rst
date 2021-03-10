@@ -4,7 +4,7 @@ The cheminfopy API reference
 The manager package
 ---------------------------
 
-SampleManager
+Sample
 ...................
 
 .. automodule:: cheminfopy.managers.sample
