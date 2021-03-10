@@ -41,6 +41,9 @@ stored in the ELN:
 Basic interactions with a sample
 ---------------------------------
 
+Initialization of :py:class:`~cheminfopy.managers.sample.SampleManager`
+...........................................................................
+
 Before you can perform any query, you need to initialize a :py:class:`~cheminfopy.managers.sample.SampleManager`.
 
 .. code-block:: python
@@ -48,4 +51,28 @@ Before you can perform any query, you need to initialize a :py:class:`~cheminfop
     from cheminfopy import SampleManager
 
     # you need to initialize the sample manager with the ELN instance, the UUID of a sample and a token
-    my_sample_manager = SampleManager(instance='https://mydb.cheminfo.org/db/eln', uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
+    my_sample_manager = SampleManager(instance='https://mydb.cheminfo.org/db/eln', sample_uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
+
+There are a view pieces of information that you need to get from the ELN for that:
+
+- The token: You can get tokens from the ELN in a view that looks somewhat like the following (on `c6h6.org <c6h6.org>`_ in the "Tools" tab)
+
+.. image:: _static/token_view.png
+
+- The sample UUID: This is the unique identifier of the sample. We will put it into the links and that the token view shows you and you can also find it in the sample table
+
+- The instance will show under the heading "Your database instance"
+
+But, the view in the ELN will also show you input that you can just copy-paste to initalize the :py:class:`~cheminfopy.managers.sample.SampleManager`. For entry tokens, it will also automatically fill the `UUID`.
+
+Retrieving information
+............................
+
+Many core properties of a sample are accessible as properties of the :py:class:`~cheminfopy.managers.sample.SampleManager`.
+That is to get the molecular formula you have to do nothing else than :py:`my_sample_manager.mf`.
+
+
+
+
+Adding information
+..........................

@@ -12,14 +12,14 @@ class Manager:
         to interact with the rest-on-couch API
 
         Args:
-            instance (str): URL the the ELN instance, for example 
+            instance (str): URL the the ELN instance, for example
                 https://mydb.cheminfo.org/db/eln for the c6h6.org
                 deployment
 
             token (str): Token string. Can be any kind of token (user/entry)
-                with any rights. If the token does not have suitable rights, 
-                the library will raise and Exception. 
-                Tokens can be generated in the ELN using the "Access Token" 
+                with any rights. If the token does not have suitable rights,
+                the library will raise and Exception.
+                Tokens can be generated in the ELN using the "Access Token"
                 view
         """
         self.instance = instance

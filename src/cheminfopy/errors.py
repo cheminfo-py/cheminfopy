@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class InvalidAttachmentTypeError(ValueError):
     pass
 
@@ -8,4 +9,3 @@ class InvalidSourceError(ValueError):
 
 class AuthenticationError(ValueError):
     pass
-

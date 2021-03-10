@@ -25,9 +25,9 @@ class ELNRequest:
 
         Args:
             token (str): Token string. Can be any kind of token (user/entry)
-                with any rights. If the token does not have suitable rights, 
-                the library will raise and Exception. 
-                Tokens can be generated in the ELN using the "Access Token" 
+                with any rights. If the token does not have suitable rights,
+                the library will raise and Exception.
+                Tokens can be generated in the ELN using the "Access Token"
                 view
         """
         self.token = token
@@ -71,7 +71,7 @@ class ELNRequest:
         return response
 
     def get(self, url: str) -> requests.Response:
-        """Make a GET request to the URL 
+        """Make a GET request to the URL
 
         Args:
             url (str): URL to which the request should be made

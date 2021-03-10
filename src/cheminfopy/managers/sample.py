@@ -2,10 +2,10 @@
 from typing import Union
 from urllib.parse import urljoin
 
-from .manager import Manager
-from .utils import _get_attachment_json
 from ..constants import VALID_SPECTRUM_TYPES
 from ..errors import InvalidAttachmentTypeError
+from .manager import Manager
+from .utils import _get_attachment_json
 
 __all__ = ["Sample"]
 
@@ -17,15 +17,17 @@ class Sample(Manager):
         """
 
         Args:
-            instance (str): URL the the ELN instance, for example 
+            instance (str): URL the the ELN instance, for example
                 https://mydb.cheminfo.org/db/eln for the c6h6.org
                 deployment
 
             token (str): Token string. Can be any kind of token (user/entry)
-                with any rights. If the token does not have suitable rights, 
-                the library will raise and Exception. 
-                Tokens can be generated in the ELN using the "Access Token" 
+                with any rights. If the token does not have suitable rights,
+                the library will raise and Exception.
+                Tokens can be generated in the ELN using the "Access Token"
                 view
+
+            sample_uuid (str): UUID of the sample
         """
         self.sample_uuid = kwargs.pop("sample_uuid", None)
         super().__init__(*args, **kwargs)
@@ -37,25 +39,25 @@ class Sample(Manager):
         name: str,
         filecontent: str,
         source_info: Union[dict, None] = None,
-    ):  
-        """This methods allows to add spectra to a sample. 
-        Follow the dataschema at https://cheminfo.github.io/data_schema/. 
-        In particular, use JCAMP-DX files for spectra. You can use the pytojcamp library 
+    ):
+        """This methods allows to add spectra to a sample.
+        Follow the dataschema at https://cheminfo.github.io/data_schema/.
+        In particular, use JCAMP-DX files for spectra. You can use the pytojcamp library
         (https://github.com/cheminfo-py/pytojcamp) to convert Python dictionaries to JCAMP-DX
-        files. 
+        files.
 
         Args:
             spectrum_type (str): spectrum type. Valid types are in VALID_SPECTRUM_TYPES
-            name (str): filename (with extension) 
+            name (str): filename (with extension)
             filecontent (str): String with the content of the file
-            source_info (Union[dict, None], optional): You can provide a dictionary with source information. 
-                Allowed keys are "name", "url", 'uuid", "doi". Use this to describe the source of the data 
-                you want to attach to the sample. If you do not provide this dictionary / leave the default value of None, 
+            source_info (Union[dict, None], optional): You can provide a dictionary with source information.
+                Allowed keys are "name", "url", 'uuid", "doi". Use this to describe the source of the data
+                you want to attach to the sample. If you do not provide this dictionary / leave the default value of None,
                 we will default the values in DEFAULT_SOURCE_DICT.
                 Defaults to None.
 
         Raises:
-            InvalidAttachmentTypeError: If the selected type is not supported by the schema of the ELN. 
+            InvalidAttachmentTypeError: If the selected type is not supported by the schema of the ELN.
                 The allowed types are in VALID_SPECTRUM_TYPES
         """
         if spectrum_type not in VALID_SPECTRUM_TYPES:
@@ -69,19 +71,19 @@ class Sample(Manager):
         )
 
     def get_spectrum(self, spectrum_type: str, name: str):
-        """Allows to get a specific spectrum from the ELN. 
-        For this you need to select the type and the filename of the spectrum. 
+        """Allows to get a specific spectrum from the ELN.
+        For this you need to select the type and the filename of the spectrum.
         You can get an overview of all the attached spectra from the table of contents of the sample.
 
         Args:
             spectrum_type (str): spectrum type. Valid types are in VALID_SPECTRUM_TYPES
-            name (str): filename (with extension) 
+            name (str): filename (with extension)
 
         Returns:
             [str]: The filecontent of the selected spectrum.
 
         Raises:
-            InvalidAttachmentTypeError: If the selected type is not supported by the schema of the ELN. 
+            InvalidAttachmentTypeError: If the selected type is not supported by the schema of the ELN.
                 The allowed types are in VALID_SPECTRUM_TYPES
         """
         if spectrum_type not in VALID_SPECTRUM_TYPES:
@@ -92,11 +94,11 @@ class Sample(Manager):
 
     @property
     def has_right(self, right: str) -> bool:
-        """Checks if the token with which the manager was initialized 
+        """Checks if the token with which the manager was initialized
         has certain rights.
 
         Args:
-            right (str): right to test ("write", "create", "read", 
+            right (str): right to test ("write", "create", "read",
                 "addAttachment" are the most relevant ones)
 
         Returns:

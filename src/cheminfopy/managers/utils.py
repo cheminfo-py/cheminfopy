@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
+
 from ..constants import DEFAULT_SOURCE_DICT
 from ..errors import InvalidSourceError
 

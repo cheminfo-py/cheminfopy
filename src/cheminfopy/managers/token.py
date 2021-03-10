@@ -1,4 +1,4 @@
-# # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # # vigenere cipher
 # # https://stackoverflow.com/a/2490718/1675586
 

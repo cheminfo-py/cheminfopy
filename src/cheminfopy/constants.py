@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __all__ = ["VALID_SPECTRUM_TYPES", "DEFAULT_SOURCE_DICT"]
 
 VALID_SPECTRUM_TYPES = [
