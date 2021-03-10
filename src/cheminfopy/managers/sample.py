@@ -61,7 +61,9 @@ class Sample(Manager):
                 The allowed types are in VALID_SPECTRUM_TYPES
         """
         if spectrum_type not in VALID_SPECTRUM_TYPES:
-            raise InvalidAttachmentTypeError(f"Invalid spectrum type {spectrum_type}. Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}.")
+            raise InvalidAttachmentTypeError(
+                f"Invalid spectrum type {spectrum_type}. Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
+            )
         query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
         url = urljoin(self.instance, query_path)
         self.requester.put(url, data=filecontent)
@@ -87,7 +89,9 @@ class Sample(Manager):
                 The allowed types are in VALID_SPECTRUM_TYPES
         """
         if spectrum_type not in VALID_SPECTRUM_TYPES:
-            raise InvalidAttachmentTypeError(f"Invalid spectrum type {spectrum_type}. Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}.")
+            raise InvalidAttachmentTypeError(
+                f"Invalid spectrum type {spectrum_type}. Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
+            )
         query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
         url = urljoin(self.instance, query_path)
         return self.requester.get_file(url).text
@@ -148,7 +152,7 @@ class Sample(Manager):
 
     @property
     def toc(self):
-        """Get the table of contents entry for this sample""""
+        """Get the table of contents entry for this sample"""
         return self._get_toc()
 
     @property
@@ -180,7 +184,6 @@ class Sample(Manager):
         """Lists all spectra that are attached to the sample"""
         toc = self.toc
         return toc["$content"]["spectra"]
-
 
     def _get_toc(self):
         """Make GET request for the table of contents"""
