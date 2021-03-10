@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+from copy import deepcopy
 from pathlib import Path
 
 from ..constants import DEFAULT_SOURCE_DICT
 from ..errors import InvalidSourceError
 
 
-def _get_attachment_json(type, filename, source_dict=None):
+def _new_toc(toc, type, filename, source_dict=None):
+    toc_copy = deepcopy(toc)
     if source_dict is None:
         source_dict = DEFAULT_SOURCE_DICT
     else:
@@ -17,14 +19,8 @@ def _get_attachment_json(type, filename, source_dict=None):
             if not isinstance(v, str):
                 raise InvalidSourceError("Source values must be strings")
 
-    extension = Path(filename).suffix
-    return {
-        "$content": {
-            type: [
-                {
-                    "source": source_dict,
-                    extension: {"filename": f"spectra/{type}/{filename}"},
-                },
-            ]
-        },
-    }
+    extension = Path(filename).suffix.replace(".", "")
+    toc_copy["$content"]["spectra"][type].append(
+        {"source": source_dict, extension: {"filename": f"spectra/{type}/{filename}"}}
+    )
+    return toc_copy

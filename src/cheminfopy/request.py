@@ -57,17 +57,22 @@ class ELNRequest:
     def post(self):
         raise NotImplementedError("POST requests are currently not supported")
 
-    def put(self, url: str, data: object) -> requests.Response:
+    def put(
+        self, url: str, data: object = None, json: dict = None
+    ) -> requests.Response:
         """Make a PUT request to the URL with the provided data
 
         Args:
             url (str): URL to which the request should be made
-            data (object): Some data to be sent with the request
-
+            data (object): Some data to be sent with the request. Defaults to None
+            json (dict): JSON payload. If not None, this method will default to     using the JSON payload instead of the data
         Returns:
             [requests.Response]: Response of the request
         """
-        response = self._make_request("PUT", url, data=data)
+        if json is not None:
+            response = self._make_request("PUT", url, json=json)
+        else:
+            response = self._make_request("PUT", url, data=data)
         return response
 
     def get(self, url: str) -> requests.Response:

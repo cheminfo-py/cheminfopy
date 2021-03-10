@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 from ..constants import VALID_SPECTRUM_TYPES
 from ..errors import InvalidAttachmentTypeError
 from .manager import Manager
-from .utils import _get_attachment_json
+from .utils import _new_toc
 
 __all__ = ["Sample"]
 
@@ -67,10 +67,8 @@ class Sample(Manager):
         query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
         url = urljoin(self.instance, query_path)
         self.requester.put(url, data=filecontent)
-        self.requester.put(
-            urljoin(self.instance, f"entry/{self.sample_uuid}/"),
-            data=_get_attachment_json(spectrum_type, name, source_info),
-        )
+        new_toc = _new_toc(self.toc, spectrum_type, name, source_info)
+        self._update_toc(new_toc)
 
     def get_spectrum(self, spectrum_type: str, name: str):
         """Allows to get a specific spectrum from the ELN.
@@ -197,4 +195,4 @@ class Sample(Manager):
         """Make a PUT request to update the table of contents"""
         query_path = f"entry/{self.sample_uuid}"
         url = urljoin(self.instance, query_path)
-        self._sample_toc = self.requester.put(url, data=new_toc)
+        self.requester.put(url, json=new_toc)

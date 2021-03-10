@@ -33,8 +33,8 @@ To do so, this library is organized around managers that provide ways to interac
 stored in the ELN:
 
 - :py:class:`~cheminfopy.managers.sample.Sample` can be used to retrieve information about a sample and add new data to one sample
-- :py:class:`~cheminfopy.managers.user.UserManager` can be used to retrieve information on the user level, e.g., to list all samples that are user has access to
-- :py:class:`~cheminfopy.managers.experiment.ExperimentManager` can be used to interact with the reaction entries in the ELN
+- :py:class:`~cheminfopy.managers.user.User` can be used to retrieve information on the user level, e.g., to list all samples that are user has access to
+- :py:class:`~cheminfopy.managers.experiment.Experiment` can be used to interact with the reaction entries in the ELN
 
 
 
@@ -69,9 +69,9 @@ Retrieving information
 ............................
 
 Many core properties of a sample are accessible as properties of the :py:class:`~cheminfopy.managers.sample.Sample`.
-That is to get the molecular formula you have to do nothing else than :py:`my_sample_manager.mf`.
+That is to get the molecular formula you have to do nothing else than :py:attr:`my_sample_manager.mf`.
 
-One common use case might be that you want to retrieve some file. For this, we have the :py:method:`~cheminfopy.managers.sample.Sample.get_spectrum` method, which expects you to put the type of spectrum (e.g., "ir", "isotherm", ...) and the filename. 
+One common use case might be that you want to retrieve some file. For this, we have the :py:method:`~cheminfopy.managers.sample.Sample.get_spectrum` method, which expects you to put the type of spectrum (e.g., "ir", "isotherm", ...) and the filename.
 
 .. code-block:: python
 
@@ -79,22 +79,22 @@ One common use case might be that you want to retrieve some file. For this, we h
 
 Which will return you the content of to the JCAMP-DX file. To convert JCAMP-DX files to Python dictionaries, you can use the `jcamp library <https://github.com/nzhagen/jcamp>`_.
 
-The question might be know: What do I do if I have no clue what the filename is? Then you can get a list of all available spectra using the :py:`my_sample_manager.spectra` property of the `Sample` object. 
+The question might be know: What do I do if I have no clue what the filename is? Then you can get a list of all available spectra using the :py:attr:`my_sample_manager.spectra` property of the `Sample` object.
 
 Adding information
 ..........................
 
 If you performed some analysis (e.g., you computational colleagues perfomed a structure optimization) you might want to add some data back to the ELN.
-For this, you can use the :py:method:`cheminfopy.managers.sample.Sample.put_spectrum` method. Please keep in mind our `data schema <https://cheminfo.github.io/data_schema/>`_ when you use this method. For instance, you can only use the types that are implemented in the schema and we recommend that you only upload JCAMP-DX files for spectral data. 
+For this, you can use the :py:method:`cheminfopy.managers.sample.Sample.put_spectrum` method. Please keep in mind our `data schema <https://cheminfo.github.io/data_schema/>`_ when you use this method. For instance, you can only use the types that are implemented in the schema and we recommend that you only upload JCAMP-DX files for spectral data.
 To convert Python dictionaries into JCAMP-DX files you can use the `pytojcamp library <https://github.com/cheminfo-py/pytojcamp>`_.
 
 
 .. code-block:: python
     source_info = {
-        "uuid": "34567896rt54ery546788969870890", 
+        "uuid": "34567896rt54ery546788969870890",
         "url": "https://aiidalab-demo.materialscloud.org/hub/login",
         "name": "Isotherm simulated using the isotherm app on AiiDAlab"
     }
     my_sample_manager.put_spectrum(spectrum_type='isotherm', name='BET.jdx', filecontent=<your_file_content>, source_info=source_info)
 
-Note that we also provided :code:`source_info` as dictionary. This is information that we will save in the database such that you can trace back, at some future point in time, where the information came from. In this case, this new attachment came from a simulation in AiiDAlab. Hence we can use this description for the source name and use the :code:`uuid` to point to the node of the same object in the AiiDA database.
+Note that we also provided :code:`source_info` as dictionary. This is information that we will save in the database such that you can trace back, at some future point in time, where the information came from. In this case, this new attachment came from a simulation in `AiiDAlab <https://www.materialscloud.org/work/aiidalab>`_. Hence we can use this description for the source name and use the :code:`uuid` to point to the node of the same object in the `AiiDA <https://www.aiida.net/events/>`_ database.
