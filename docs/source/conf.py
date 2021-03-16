@@ -68,7 +68,7 @@ numfig = True
 # a list of builtin themes.
 #
 html_theme = "sphinx_book_theme"
-# html_logo = "../pyepal_logo.png"
+html_logo = "_stztic/logo.png"
 
 # Register the theme as an extension to generate a sitemap.xml
 
