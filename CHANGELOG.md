@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.1.0...v0.2.0) (2021-04-07)
+
+
+### Features
+
+* adding metadata functionality ([b9301db](https://www.github.com/cheminfo-py/cheminfopy/commit/b9301db86d9a399b92c7771d6f42446fcad9ee42))
+
+
+### Documentation
+
+* adding logo ([12158f9](https://www.github.com/cheminfo-py/cheminfopy/commit/12158f99db7d059eb10433d92bb101afb0969d01))
+
 ## 0.1.0 (2021-03-10)
 
 
