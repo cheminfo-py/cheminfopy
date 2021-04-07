@@ -38,6 +38,7 @@ class Sample(Manager):
         spectrum_type: str,
         name: str,
         filecontent: str,
+        metadata: dict = None,
         source_info: Union[dict, None] = None,
     ):
         """This methods allows to add spectra to a sample.
@@ -50,9 +51,15 @@ class Sample(Manager):
             spectrum_type (str): spectrum type. Valid types are in VALID_SPECTRUM_TYPES
             name (str): filename (with extension)
             filecontent (str): String with the content of the file
+            metadata (str): Metadata dictionary. Please follow the schema at
+                https://cheminfo.github.io/data_schema/.
+                For example, for gas adsorption isotherms you might want
+                to add the keys 'gas' and 'temperature'.
+                Defaults to None.
             source_info (Union[dict, None], optional): You can provide a dictionary with source information.
                 Allowed keys are "name", "url", 'uuid", "doi". Use this to describe the source of the data
-                you want to attach to the sample. If you do not provide this dictionary / leave the default value of None,
+                you want to attach to the sample.
+                If you do not provide this dictionary / leave the default value of None,
                 we will default the values in DEFAULT_SOURCE_DICT.
                 Defaults to None.
 
@@ -67,7 +74,7 @@ class Sample(Manager):
         query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
         url = urljoin(self.instance, query_path)
         self.requester.put(url, data=filecontent)
-        new_toc = _new_toc(self.toc, spectrum_type, name, source_info)
+        new_toc = _new_toc(self.toc, spectrum_type, name, metadata, source_info)
         self._update_toc(new_toc)
 
     def get_spectrum(self, spectrum_type: str, name: str):
