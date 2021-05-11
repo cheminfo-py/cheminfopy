@@ -60,17 +60,16 @@ tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pytest"]
 
 [[package]]
 name = "astroid"
-version = "2.4.2"
+version = "2.5.6"
 description = "An abstract syntax tree for Python with inference support."
 category = "dev"
 optional = false
-python-versions = ">=3.5"
+python-versions = "~=3.6"
 
 [package.dependencies]
-lazy-object-proxy = ">=1.4.0,<1.5.0"
-six = ">=1.12,<2.0"
+lazy-object-proxy = ">=1.4.0"
 typed-ast = {version = ">=1.4.0,<1.5", markers = "implementation_name == \"cpython\" and python_version < \"3.8\""}
-wrapt = ">=1.11,<2.0"
+wrapt = ">=1.11,<1.13"
 
 [[package]]
 name = "async-generator"
@@ -912,14 +911,14 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "pylint"
-version = "2.6.2"
+version = "2.8.2"
 description = "python code static checker"
 category = "dev"
 optional = false
-python-versions = ">=3.5.*"
+python-versions = "~=3.6"
 
 [package.dependencies]
-astroid = ">=2.4.0,<2.5"
+astroid = ">=2.5.6,<2.7"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
 isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.7"
@@ -1447,7 +1446,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "f754dd8f3349397742c640cbdb7f9f5cc9fa1e7593a4b16dc9160f6d34dbae6c"
+content-hash = "851f33a74a20f10fae678682415963a7d3ce525c6fa2fd5f95db2f41926d2711"
 
 [metadata.files]
 alabaster = [
@@ -1487,8 +1486,8 @@ argon2-cffi = [
     {file = "argon2_cffi-20.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:8a84934bd818e14a17943de8099d41160da4a336bcc699bb4c394bbb9b94bd32"},
 ]
 astroid = [
-    {file = "astroid-2.4.2-py3-none-any.whl", hash = "sha256:bc58d83eb610252fd8de6363e39d4f1d0619c894b0ed24603b881c02e64c7386"},
-    {file = "astroid-2.4.2.tar.gz", hash = "sha256:2f4078c2a41bf377eea06d71c9d2ba4eb8f6b1af2135bec27bbbb7d8f12bb703"},
+    {file = "astroid-2.5.6-py3-none-any.whl", hash = "sha256:4db03ab5fc3340cf619dbc25e42c2cc3755154ce6009469766d7143d1fc2ee4e"},
+    {file = "astroid-2.5.6.tar.gz", hash = "sha256:8a398dfce302c13f14bab13e2b14fe385d32b73f4e4853b9bdfb64598baa1975"},
 ]
 async-generator = [
     {file = "async_generator-1.10-py3-none-any.whl", hash = "sha256:01c7bf666359b4967d2cda0000cc2e4af16a0ae098cbffcb8472fb9e8ad6585b"},
@@ -1872,8 +1871,8 @@ pygments = [
     {file = "Pygments-2.8.0.tar.gz", hash = "sha256:37a13ba168a02ac54cc5891a42b1caec333e59b66addb7fa633ea8a6d73445c0"},
 ]
 pylint = [
-    {file = "pylint-2.6.2-py3-none-any.whl", hash = "sha256:e71c2e9614a4f06e36498f310027942b0f4f2fde20aebb01655b31edc63b9eaf"},
-    {file = "pylint-2.6.2.tar.gz", hash = "sha256:718b74786ea7ed07aa0c58bf572154d4679f960d26e9641cc1de204a30b87fc9"},
+    {file = "pylint-2.8.2-py3-none-any.whl", hash = "sha256:f7e2072654a6b6afdf5e2fb38147d3e2d2d43c89f648637baab63e026481279b"},
+    {file = "pylint-2.8.2.tar.gz", hash = "sha256:586d8fa9b1891f4b725f587ef267abe2a1bad89d6b184520c7f07a253dd6e217"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},
