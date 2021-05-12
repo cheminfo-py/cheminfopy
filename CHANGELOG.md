@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.2.0...v0.3.0) (2021-05-12)
+
+
+### Features
+
+*  get sample object from user object ([#16](https://www.github.com/cheminfo-py/cheminfopy/issues/16)) ([4bf6bce](https://www.github.com/cheminfo-py/cheminfopy/commit/4bf6bce7b3334d1887e397f017ad1c069d2f395f))
+
 ## [0.2.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.1.0...v0.2.0) (2021-04-07)
 
 
