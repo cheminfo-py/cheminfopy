@@ -103,3 +103,8 @@ To convert Python dictionaries into JCAMP-DX files you can use the `pytojcamp li
     my_sample_manager.put_spectrum(spectrum_type='isotherm', name='BET.jdx', filecontent='<your_file_content>', metadata=metadata, source_info=source_info)
 
 Note that we also provided :code:`source_info` as dictionary. This is information that we will save in the database such that you can trace back, at some future point in time, where the information came from. In this case, this new attachment came from a simulation in `AiiDAlab <https://www.materialscloud.org/work/aiidalab>`_. Hence we can use this description for the source name and use the :code:`uuid` to point to the node of the same object in the `AiiDA <https://www.aiida.net/events/>`_ database.
+
+Global access to the ELN
+---------------------------
+
+If you have a user token, you can use the :py:obj:`~cheminfopy.managers.user.User` class. With the :py:func:`~cheminfopy.managers.user.User.get_sample` method you can get a :py:obj:`~cheminfopy.managers.sample.Sample` object given a :code:`UUID` of a sample.
