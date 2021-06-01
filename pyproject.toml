@@ -14,7 +14,7 @@ python = "^3.7"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.12.1"
-black = "^21.5b1"
+black = "^21.5b2"
 isort = "^5.8.0"
 jupyterlab = "^3.0.15"
 Sphinx = "^3.5.1"
