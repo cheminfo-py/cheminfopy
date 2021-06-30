@@ -3,9 +3,10 @@
 import json
 import logging
 from typing import Dict, Tuple
-from urllib.parse import urljoin
 
 import requests
+
+from .errors import AuthenticationError
 
 METHOD_MAP: Dict[str, Tuple] = {
     "GET": (requests.get, {}),
@@ -50,6 +51,8 @@ class ELNRequest:
     def _make_request(self, verb: str, url: str, **kwargs) -> requests.Response:
         method, headers = self._get_header(verb)
         request = method(url, headers=headers, params=self.params, **kwargs)
+        if request.status_code == 401:
+            raise AuthenticationError("Request was unauthorized")
         if not request.ok:
             request.raise_for_status()
         return request
@@ -85,6 +88,8 @@ class ELNRequest:
             requests.Response: Response of the request
         """
         response = self._make_request("GET", url)
+        if response.status_code == 401:
+            raise AuthenticationError("Request was unauthorized")
         return json.loads(response.text)
 
     def get_file(self, url: str) -> requests.Response:
