@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Handle operations on the user level"""
+from typing import Collection
 from urllib.parse import urljoin
 
 from .experiment import Experiment
@@ -27,3 +28,38 @@ class User(Manager):
         return Experiment(
             instance=self.instance, token=self.token, experiment_uuid=uuid
         )
+
+    @property
+    def is_valid_token(self):
+        """Checks if the token is actually a user token"""
+        url = urljoin(self.instance, f"token/{self.token}")
+        response = self.requester.get(url)
+        try:
+            is_user_token = response["$kind"] == "user"
+            return is_user_token
+        except Exception: # pylint:disable=broad-except
+            return False
+
+    def has_rights(self, rights: Collection[str]) -> bool:
+        """Checks if the token with which the manager was initialized
+        has certain rights.
+
+        Args:
+            rights (Collection[str]): right to test ("write", "create", "read",
+                "addAttachment" are the most relevant ones)
+
+        Returns:
+            [bool]: True if the manager instance has the rights
+        """
+        query_path = f"token/{self.token}"
+        url = urljoin(self.instance, query_path)
+        response = self.requester.get(url)
+
+        try:
+            rights_in_token = response["rights"]
+            for right in rights:
+                if not right in rights_in_token:
+                    return False
+            return True
+        except Exception: # pylint:disable=broad-except
+            return False

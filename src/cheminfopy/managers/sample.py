@@ -101,7 +101,6 @@ class Sample(Manager):
         url = urljoin(self.instance, query_path)
         return self.requester.get_file(url).text
 
-    @property
     def has_right(self, right: str) -> bool:
         """Checks if the token with which the manager was initialized
         has certain rights.
