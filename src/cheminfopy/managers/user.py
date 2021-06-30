@@ -33,11 +33,11 @@ class User(Manager):
     def is_valid_token(self):
         """Checks if the token is actually a user token"""
         url = urljoin(self.instance, f"token/{self.token}")
-        response = self.requester.get(url)
         try:
+            response = self.requester.get(url)
             is_user_token = response["$kind"] == "user"
             return is_user_token
-        except Exception: # pylint:disable=broad-except
+        except Exception:  # pylint:disable=broad-except
             return False
 
     def has_rights(self, rights: Collection[str]) -> bool:
@@ -53,13 +53,13 @@ class User(Manager):
         """
         query_path = f"token/{self.token}"
         url = urljoin(self.instance, query_path)
-        response = self.requester.get(url)
 
         try:
+            response = self.requester.get(url)
             rights_in_token = response["rights"]
             for right in rights:
                 if not right in rights_in_token:
                     return False
             return True
-        except Exception: # pylint:disable=broad-except
+        except Exception:  # pylint:disable=broad-except
             return False
