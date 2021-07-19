@@ -21,7 +21,7 @@ class User(Manager):
 
     def get_sample(self, uuid: str):
         """Get a sample object for a sample UUID"""
-        return Sample(instance=self.instance, token=self.token, sample_uuid=uuid)
+        return Sample(instance=self._instance, token=self.token, sample_uuid=uuid)
 
     def get_experiment(self, uuid: str):
         """Get a experiment object for an experiment UUID"""

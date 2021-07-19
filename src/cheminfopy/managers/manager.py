@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
+"""Base manager class"""
+from urllib.parse import urljoin
+
 from ..request import ELNRequest
+from .utils import validate_and_sanitize_instance_url
 
 __all__ = ["Manager"]
 
 
-def _sanitize_instance(instance):
-    if instance[-1] != "/":
-        instance += "/"
-    return instance
-
-
-class Manager:
+class Manager:  # pylint: disable=too-few-public-methods,unused-argument
     """Base class for all managers"""
 
     def __init__(self, instance: str, token: str, **kwargs):
@@ -28,6 +26,11 @@ class Manager:
                 Tokens can be generated in the ELN using the "Access Token"
                 view
         """
-        self.instance = _sanitize_instance(instance)
+        self._instance = validate_and_sanitize_instance_url(instance)
         self.token = token
         self.requester = ELNRequest(self.token)
+
+    @property
+    def instance(self):
+        """Provide the eln database URL"""
+        return urljoin(self._instance, "eln/")
