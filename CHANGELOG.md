@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.3.0...v0.4.0) (2021-07-19)
+
+
+### Features
+
+* add check for rights and token validity on user scope ([b438091](https://www.github.com/cheminfo-py/cheminfopy/commit/b43809133e9ff125027722a45fe6813ec35dd1ab))
+* catch unauthorized error ([4324d79](https://www.github.com/cheminfo-py/cheminfopy/commit/4324d79049c9e7f83bc8e53f73b1d405f621154d))
+
+
+### Bug Fixes
+
+* catch earlier ([8c7b688](https://www.github.com/cheminfo-py/cheminfopy/commit/8c7b68883d80f57dc2faec514471ef724cf24da6))
+
 ## [0.3.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.2.0...v0.3.0) (2021-05-12)
 
 
