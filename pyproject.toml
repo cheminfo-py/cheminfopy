@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cheminfopy"
-version = "0.3.0"
+version = "0.4.0"
 description = "cheminfopy is a SDK that provides a high-level interface to the rest-on-couch API that powers the cheminfo ELN"
 license = "MIT"
 readme = "README.md"
