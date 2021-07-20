@@ -3,7 +3,7 @@
 from urllib.parse import urljoin
 
 from ..request import ELNRequest
-from .utils import validate_and_sanitize_instance_url
+from .utils import sanitize_instance_url
 
 __all__ = ["Manager"]
 
@@ -26,7 +26,7 @@ class Manager:  # pylint: disable=too-few-public-methods,unused-argument
                 Tokens can be generated in the ELN using the "Access Token"
                 view
         """
-        self._instance = validate_and_sanitize_instance_url(instance)
+        self._instance = sanitize_instance_url(instance)
         self.token = token
         self.requester = ELNRequest(self.token)
 

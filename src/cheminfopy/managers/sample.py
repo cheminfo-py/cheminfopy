@@ -209,4 +209,4 @@ class Sample(Manager):
         """Make a PUT request to update the table of contents"""
         query_path = f"entry/{self.sample_uuid}"
         url = urljoin(self.instance, query_path)
-        self.requester.put(url, json=new_toc)
+        self.requester.put(url, json_payload=new_toc)

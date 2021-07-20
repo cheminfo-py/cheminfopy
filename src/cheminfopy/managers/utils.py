@@ -12,6 +12,7 @@ from ..errors import InvalidInstanceUrlError, InvalidSourceError
 
 
 def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
+    """Create an updated TOC string"""
     toc_copy = deepcopy(toc)
     if source_dict is None:
         source_dict = DEFAULT_SOURCE_DICT
@@ -42,7 +43,7 @@ def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
     return toc_copy
 
 
-def validate_and_sanitize_instance_url(url: str) -> str:
+def sanitize_instance_url(url: str) -> str:
     """Makes sure that there is
     1) Either HTTP or HTTPS in the URL
     2) There is a trailing slash
