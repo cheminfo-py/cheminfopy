@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.5.1...v0.6.0) (2021-07-20)
+
+
+### Features
+
+* update API, close [#4](https://www.github.com/cheminfo-py/cheminfopy/issues/4) ([e549691](https://www.github.com/cheminfo-py/cheminfopy/commit/e549691bd273e2f8577390e8f90b8e6a4375e6ac))
+
 ### [0.5.1](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.5.0...v0.5.1) (2021-07-20)
 
 
