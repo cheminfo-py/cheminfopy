@@ -60,10 +60,13 @@ def sanitize_instance_url(url: str) -> str:
         url += "/"
 
     try:
-        test_url = urljoin(url, "_all_dbs/")
+        test_url = urljoin(url, "db/_all_dbs/")
         req = requests.get(test_url)
         if not req.ok:
-            raise InvalidInstanceUrlError("Testing the instance URL failed")
+            raise InvalidInstanceUrlError(
+                "Testing the instance URL failed.\
+                 Make sure that you only provide the base URL and not any API endpoint such as `/db` or `/db/eln`"
+            )
     except Exception as execpt:  # pylint:disable=broad-except
         raise InvalidInstanceUrlError("Testing the instance URL failed") from execpt
 

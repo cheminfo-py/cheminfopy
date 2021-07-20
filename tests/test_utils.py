@@ -17,6 +17,6 @@ def test_sanitize_instance_url():
         sanitize_instance_url("https://mydb.cheminfo.org/db/eln")
 
     assert (
-        sanitize_instance_url("https://mydb.cheminfo.org/db")
-        == "https://mydb.cheminfo.org/db/"
+        sanitize_instance_url("https://mydb.cheminfo.org")
+        == "https://mydb.cheminfo.org/"
     )

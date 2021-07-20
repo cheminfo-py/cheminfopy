@@ -33,4 +33,4 @@ class Manager:  # pylint: disable=too-few-public-methods,unused-argument
     @property
     def instance(self):
         """Provide the eln database URL"""
-        return urljoin(self._instance, "eln/")
+        return urljoin(self._instance, "db/eln/")
