@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.4.0...v0.5.0) (2021-07-20)
+
+
+### Bug Fixes
+
+* bump dep ([6d0612e](https://www.github.com/cheminfo-py/cheminfopy/commit/6d0612e6fb5588b351cc718c94d3b88a94d65390))
+
 ## [0.4.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.3.0...v0.4.0) (2021-07-19)
 
 
