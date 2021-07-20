@@ -51,7 +51,7 @@ Before you can perform any query, you need to initialize a :py:class:`~cheminfop
     from cheminfopy import Sample
 
     # you need to initialize the sample manager with the ELN instance, the UUID of a sample and a token
-    my_sample_manager = Sample(instance='https://mydb.cheminfo.org/db/eln', sample_uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
+    my_sample_manager = Sample(instance='https://mydb.cheminfo.org/db', sample_uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
 
 There are a view pieces of information that you need to get from the ELN for that:
 

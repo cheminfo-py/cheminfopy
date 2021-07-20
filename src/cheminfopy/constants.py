@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Globals to be reused across the cheminfopy package"""
 __all__ = ["VALID_SPECTRUM_TYPES", "DEFAULT_SOURCE_DICT"]
 
 VALID_SPECTRUM_TYPES = [

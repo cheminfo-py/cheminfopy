@@ -31,18 +31,18 @@ class Experiment(Manager):
         self._experiment_toc = None
 
     @property
-    def id(self):
+    def id(self):  # pylint: disable=invalid-name
         """UUID of the reaction"""
         return self.toc["_id"]
 
     @property
     def revision(self):
-        """Revision of the document"""
+        """Revision of the reaction"""
         return self.toc["_rev"]
 
     @property
     def owners(self):
-        """Owners of the experiment"""
+        """Owners of the reaction"""
         return self.toc["$owners"]
 
     def _get_toc(self):

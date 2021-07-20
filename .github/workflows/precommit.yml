@@ -20,8 +20,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade  poetry
-          poetry install .
+          pip install --upgrade  poetry pre-commit isort pylint pytest
+          pip install .
       - name: Run pre-commit
         run:
           pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Interface for the sample abstraction in the cheminfo ELN"""
 from typing import Union
 from urllib.parse import urljoin
 
@@ -33,7 +34,7 @@ class Sample(Manager):
         super().__init__(*args, **kwargs)
         self._sample_toc = None
 
-    def put_spectrum(
+    def put_spectrum(  # pylint: disable=too-many-arguments
         self,
         spectrum_type: str,
         name: str,
@@ -56,20 +57,24 @@ class Sample(Manager):
                 For example, for gas adsorption isotherms you might want
                 to add the keys 'gas' and 'temperature'.
                 Defaults to None.
-            source_info (Union[dict, None], optional): You can provide a dictionary with source information.
-                Allowed keys are "name", "url", 'uuid", "doi". Use this to describe the source of the data
+            source_info (Union[dict, None], optional):
+                You can provide a dictionary with source information.
+                Allowed keys are "name", "url", 'uuid", "doi".
+                Use this to describe the source of the data
                 you want to attach to the sample.
                 If you do not provide this dictionary / leave the default value of None,
                 we will default the values in DEFAULT_SOURCE_DICT.
                 Defaults to None.
 
         Raises:
-            InvalidAttachmentTypeError: If the selected type is not supported by the schema of the ELN.
+            InvalidAttachmentTypeError: If the selected type is not supported
+                by the schema of the ELN.
                 The allowed types are in VALID_SPECTRUM_TYPES
         """
         if spectrum_type not in VALID_SPECTRUM_TYPES:
             raise InvalidAttachmentTypeError(
-                f"Invalid spectrum type {spectrum_type}. Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
+                f"Invalid spectrum type {spectrum_type}.\
+                     Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
             )
         query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
         url = urljoin(self.instance, query_path)
@@ -80,7 +85,8 @@ class Sample(Manager):
     def get_spectrum(self, spectrum_type: str, name: str):
         """Allows to get a specific spectrum from the ELN.
         For this you need to select the type and the filename of the spectrum.
-        You can get an overview of all the attached spectra from the table of contents of the sample.
+        You can get an overview of all the attached spectra
+        from the table of contents of the sample.
 
         Args:
             spectrum_type (str): spectrum type. Valid types are in VALID_SPECTRUM_TYPES
@@ -90,12 +96,14 @@ class Sample(Manager):
             [str]: The filecontent of the selected spectrum.
 
         Raises:
-            InvalidAttachmentTypeError: If the selected type is not supported by the schema of the ELN.
+            InvalidAttachmentTypeError: If the selected type is not supported
+                by the schema of the ELN.
                 The allowed types are in VALID_SPECTRUM_TYPES
         """
         if spectrum_type not in VALID_SPECTRUM_TYPES:
             raise InvalidAttachmentTypeError(
-                f"Invalid spectrum type {spectrum_type}. Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
+                f"Invalid spectrum type {spectrum_type}.\
+                     Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
             )
         query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
         url = urljoin(self.instance, query_path)
@@ -120,7 +128,7 @@ class Sample(Manager):
         return False
 
     @property
-    def id(self):
+    def id(self):  # pylint: disable=invalid-name
         """UUID of the sample"""
         return self.toc["_id"]
 
@@ -166,19 +174,19 @@ class Sample(Manager):
         return toc["$content"]["general"]["molfile"]
 
     @property
-    def mw(self):
+    def mw(self):  # pylint: disable=invalid-name
         """Return the molecular weight in g/mol"""
         toc = self.toc
         return toc["$content"]["general"]["mw"]
 
     @property
-    def em(self):
+    def em(self):  # pylint: disable=invalid-name
         """Returns the exact mass in Dalton"""
         toc = self.toc
         return toc["$content"]["general"]["em"]
 
     @property
-    def mf(self):
+    def mf(self):  # pylint: disable=invalid-name
         """Returns a string with the molecular formula"""
         toc = self.toc
         return toc["$content"]["general"]["mf"]
@@ -201,4 +209,4 @@ class Sample(Manager):
         """Make a PUT request to update the table of contents"""
         query_path = f"entry/{self.sample_uuid}"
         url = urljoin(self.instance, query_path)
-        self.requester.put(url, json=new_toc)
+        self.requester.put(url, json_payload=new_toc)

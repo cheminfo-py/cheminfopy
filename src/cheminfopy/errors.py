@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+"""Custom error types for cheminfopy"""
+
+
 class InvalidAttachmentTypeError(ValueError):
-    pass
+    """Raised in case of incompatible attachment type"""
 
 
 class InvalidSourceError(ValueError):
-    pass
+    """Raised if a "spectrum_type"/"source" key does not match the schema"""
 
 
 class AuthenticationError(ValueError):
-    pass
+    """Raised if authentication fails"""
+
+
+class InvalidInstanceUrlError(ValueError):
+    """Raised if the provided instance URL seems invalid"""

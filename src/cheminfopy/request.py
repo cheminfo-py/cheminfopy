@@ -36,19 +36,20 @@ class ELNRequest:
         self.logger = logging.getLogger("ELNRequestLogger")
         self.logger.setLevel(logging.DEBUG)
         # Todo: factor out
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.DEBUG)
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
-        ch.setFormatter(formatter)
-        self.logger.addHandler(ch)
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
 
     def _get_header(self, verb: str):
         requests_method, headers = METHOD_MAP[verb.upper()]
         return requests_method, headers
 
     def _make_request(self, verb: str, url: str, **kwargs) -> requests.Response:
+        """Perform the request verb (GET, POST, PUT)"""
         method, headers = self._get_header(verb)
         request = method(url, headers=headers, params=self.params, **kwargs)
         if request.status_code == 401:
@@ -58,22 +59,24 @@ class ELNRequest:
         return request
 
     def post(self):
+        """Make a POST request."""
         raise NotImplementedError("POST requests are currently not supported")
 
     def put(
-        self, url: str, data: object = None, json: dict = None
+        self, url: str, data: object = None, json_payload: dict = None
     ) -> requests.Response:
         """Make a PUT request to the URL with the provided data
 
         Args:
             url (str): URL to which the request should be made
             data (object): Some data to be sent with the request. Defaults to None
-            json (dict): JSON payload. If not None, this method will default to     using the JSON payload instead of the data
+            json_payload (dict): JSON payload. If not None, this method will default to
+                using the JSON payload instead of the data
         Returns:
             [requests.Response]: Response of the request
         """
         if json is not None:
-            response = self._make_request("PUT", url, json=json)
+            response = self._make_request("PUT", url, json=json_payload)
         else:
             response = self._make_request("PUT", url, data=data)
         return response
@@ -93,5 +96,6 @@ class ELNRequest:
         return json.loads(response.text)
 
     def get_file(self, url: str) -> requests.Response:
+        """Alias for GET request"""
         response = self._make_request("GET", url)
         return response
