@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """Custom error types for cheminfopy"""
 
+__all__ = [
+    "InvalidAttachmentTypeError",
+    "InvalidSourceError",
+    "AuthenticationError",
+    "InvalidInstanceUrlError",
+]
+
 
 class InvalidAttachmentTypeError(ValueError):
     """Raised in case of incompatible attachment type"""
