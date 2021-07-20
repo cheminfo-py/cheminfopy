@@ -3,7 +3,7 @@
 from typing import Union
 from urllib.parse import urljoin
 
-from ..constants import VALID_SPECTRUM_TYPES
+from ..constants import VALID_DATA_TYPES
 from ..errors import InvalidAttachmentTypeError
 from .manager import Manager
 from .utils import _new_toc
@@ -34,9 +34,9 @@ class Sample(Manager):
         super().__init__(*args, **kwargs)
         self._sample_toc = None
 
-    def put_spectrum(  # pylint: disable=too-many-arguments
+    def put_data(  # pylint: disable=too-many-arguments
         self,
-        spectrum_type: str,
+        data_type: str,
         name: str,
         filecontent: str,
         metadata: dict = None,
@@ -49,7 +49,7 @@ class Sample(Manager):
         files.
 
         Args:
-            spectrum_type (str): spectrum type. Valid types are in VALID_SPECTRUM_TYPES
+            data_type (str): spectrum type. Valid types are in VALID_DATA_TYPES
             name (str): filename (with extension)
             filecontent (str): String with the content of the file
             metadata (str): Metadata dictionary. Please follow the schema at
@@ -69,27 +69,27 @@ class Sample(Manager):
         Raises:
             InvalidAttachmentTypeError: If the selected type is not supported
                 by the schema of the ELN.
-                The allowed types are in VALID_SPECTRUM_TYPES
+                The allowed types are in VALID_DATA_TYPES
         """
-        if spectrum_type not in VALID_SPECTRUM_TYPES:
+        if data_type not in VALID_DATA_TYPES:
             raise InvalidAttachmentTypeError(
-                f"Invalid spectrum type {spectrum_type}.\
-                     Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
+                f"Invalid spectrum type {data_type}.\
+                     Allowed spectrum types are {', '.join(VALID_DATA_TYPES)}."
             )
-        query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
+        query_path = f"entry/{self.sample_uuid}/spectra/{data_type}/{name}"
         url = urljoin(self.instance, query_path)
         self.requester.put(url, data=filecontent)
-        new_toc = _new_toc(self.toc, spectrum_type, name, metadata, source_info)
+        new_toc = _new_toc(self.toc, data_type, name, metadata, source_info)
         self._update_toc(new_toc)
 
-    def get_spectrum(self, spectrum_type: str, name: str):
+    def get_data(self, data_type: str, name: str):
         """Allows to get a specific spectrum from the ELN.
         For this you need to select the type and the filename of the spectrum.
         You can get an overview of all the attached spectra
         from the table of contents of the sample.
 
         Args:
-            spectrum_type (str): spectrum type. Valid types are in VALID_SPECTRUM_TYPES
+            data_type (str): spectrum type. Valid types are in VALID_DATA_TYPES
             name (str): filename (with extension)
 
         Returns:
@@ -98,14 +98,14 @@ class Sample(Manager):
         Raises:
             InvalidAttachmentTypeError: If the selected type is not supported
                 by the schema of the ELN.
-                The allowed types are in VALID_SPECTRUM_TYPES
+                The allowed types are in VALID_DATA_TYPES
         """
-        if spectrum_type not in VALID_SPECTRUM_TYPES:
+        if data_type not in VALID_DATA_TYPES:
             raise InvalidAttachmentTypeError(
-                f"Invalid spectrum type {spectrum_type}.\
-                     Allowed spectrum types are {', '.join(VALID_SPECTRUM_TYPES)}."
+                f"Invalid spectrum type {data_type}.\
+                     Allowed spectrum types are {', '.join(VALID_DATA_TYPES)}."
             )
-        query_path = f"entry/{self.sample_uuid}/spectra/{spectrum_type}/{name}"
+        query_path = f"entry/{self.sample_uuid}/spectra/{data_type}/{name}"
         url = urljoin(self.instance, query_path)
         return self.requester.get_file(url).text
 

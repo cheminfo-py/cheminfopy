@@ -14,7 +14,7 @@ class InvalidAttachmentTypeError(ValueError):
 
 
 class InvalidSourceError(ValueError):
-    """Raised if a "spectrum_type"/"source" key does not match the schema"""
+    """Raised if a "data_type"/"source" key does not match the schema"""
 
 
 class AuthenticationError(ValueError):
