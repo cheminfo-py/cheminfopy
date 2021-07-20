@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.5.1](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.5.0...v0.5.1) (2021-07-20)
+
+
+### Bug Fixes
+
+* instance url does not need db in it ([fa349ea](https://www.github.com/cheminfo-py/cheminfopy/commit/fa349ea04eda40de3e7ea13fdc792fe7d490f627))
+
 ## [0.5.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.4.0...v0.5.0) (2021-07-20)
 
 
