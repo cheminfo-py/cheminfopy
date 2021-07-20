@@ -17,7 +17,7 @@ class Manager:  # pylint: disable=too-few-public-methods,unused-argument
 
         Args:
             instance (str): URL the the ELN instance, for example
-                https://mydb.cheminfo.org/db/eln for the c6h6.org
+                https://mydb.cheminfo.org/ for the c6h6.org
                 deployment
 
             token (str): Token string. Can be any kind of token (user/entry)
