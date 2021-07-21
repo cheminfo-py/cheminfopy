@@ -36,10 +36,10 @@ def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
             append_dict[key] = value
 
     try:
-        toc_copy["$content"]["spectra"][type].append(append_dict)
+        toc_copy["$content"]["spectra"][dtype].append(append_dict)
     except KeyError:
         # first entry
-        toc_copy["$content"]["spectra"][type] = [append_dict]
+        toc_copy["$content"]["spectra"][dtype] = [append_dict]
     return toc_copy
 
 
