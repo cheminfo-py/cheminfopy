@@ -38,7 +38,7 @@ class Sample(Manager):
         self,
         data_type: str,
         name: str,
-        filecontent: str,
+        file_content: str,
         metadata: dict = None,
         source_info: Union[dict, None] = None,
     ):
@@ -50,8 +50,8 @@ class Sample(Manager):
 
         Args:
             data_type (str): spectrum type. Valid types are in VALID_DATA_TYPES
-            name (str): filename (with extension)
-            filecontent (str): String with the content of the file
+            name (str): file_name (with extension)
+            file_content (str): String with the content of the file
             metadata (str): Metadata dictionary. Please follow the schema at
                 https://cheminfo.github.io/data_schema/.
                 For example, for gas adsorption isotherms you might want
@@ -78,22 +78,22 @@ class Sample(Manager):
             )
         query_path = f"entry/{self.sample_uuid}/spectra/{data_type}/{name}"
         url = urljoin(self.instance, query_path)
-        self.requester.put(url, data=filecontent)
+        self.requester.put(url, data=file_content)
         new_toc = _new_toc(self.toc, data_type, name, metadata, source_info)
         self._update_toc(new_toc)
 
     def get_data(self, data_type: str, name: str):
         """Allows to get a specific spectrum from the ELN.
-        For this you need to select the type and the filename of the spectrum.
+        For this you need to select the type and the file_name of the spectrum.
         You can get an overview of all the attached spectra
         from the table of contents of the sample.
 
         Args:
             data_type (str): spectrum type. Valid types are in VALID_DATA_TYPES
-            name (str): filename (with extension)
+            name (str): file_name (with extension)
 
         Returns:
-            [str]: The filecontent of the selected spectrum.
+            [str]: The file_content of the selected spectrum.
 
         Raises:
             InvalidAttachmentTypeError: If the selected type is not supported
