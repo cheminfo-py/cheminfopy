@@ -79,11 +79,10 @@ class Sample(Manager):
         query_path = f"entry/{self.sample_uuid}/spectra/{data_type}/{file_name}"
         url = urljoin(self.instance, query_path)
 
-        new_toc = _new_toc(self.toc, data_type, file_name, metadata, source_info)
-
         self.requester.put(url, data=file_content)
         # Fail and do not update the TOC in case we cannot find the file
         test_upload(url, self.requester)
+        new_toc = _new_toc(self.toc, data_type, file_name, metadata, source_info)
 
         self._update_toc(new_toc)
 

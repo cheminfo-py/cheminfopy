@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Helper functions for the manager classes"""
 
+import time
 from copy import deepcopy
 from pathlib import Path
 from urllib.parse import urljoin
@@ -9,6 +10,10 @@ import requests
 
 from ..constants import DEFAULT_SOURCE_DICT
 from ..errors import InvalidInstanceUrlError, InvalidSourceError, RequestFailed
+
+
+def current_milli_time():
+    return round(time.time() * 1000)
 
 
 def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
@@ -34,9 +39,10 @@ def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
         "source": source_dict,
         extension: {"filename": f"spectra/{dtype}/{filename}"},
     }
+    toc_copy["$modificationDate"] = current_milli_time()
     if isinstance(metadata, dict):
         for key, value in metadata.items():
-            append_dict[str(key)] = value
+            append_dict[key] = value
 
     try:
         toc_copy["$content"]["spectra"][dtype].append(append_dict)
@@ -77,7 +83,7 @@ def sanitize_instance_url(url: str) -> str:
 
 
 def test_upload(url, requester):
-    response = requester.get(url)
+    response = requester._make_request("GET", url)  # pylint:disable=protected-access
     if not response.status_code == 200:
         raise RequestFailed(
             "Unexpected error occured in the upload process.\
