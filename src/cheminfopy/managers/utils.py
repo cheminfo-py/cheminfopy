@@ -26,20 +26,22 @@ def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
             if not isinstance(value, str):
                 raise InvalidSourceError("Source values must be strings")
 
-    extension = Path(filename).suffix.replace(".", "")
+    extension = str(Path(filename).suffix).replace(".", "")
+    # ToDo: handle empty string, maybe with exception
+
     append_dict = {
         "source": source_dict,
         extension: {"filename": f"spectra/{dtype}/{filename}"},
     }
     if isinstance(metadata, dict):
         for key, value in metadata.items():
-            append_dict[key] = value
+            append_dict[str(key)] = value
 
     try:
-        toc_copy["$content"]["spectra"][type].append(append_dict)
+        toc_copy["$content"]["spectra"][dtype].append(append_dict)
     except KeyError:
         # first entry
-        toc_copy["$content"]["spectra"][type] = [append_dict]
+        toc_copy["$content"]["spectra"][dtype] = [append_dict]
     return toc_copy
 
 
