@@ -62,6 +62,10 @@ class ELNRequest:
         """Make a POST request."""
         raise NotImplementedError("POST requests are currently not supported")
 
+    def delete(self, url: str) -> requests.Response:
+        response = self._make_request("DELETE", url)
+        return response
+
     def put(
         self, url: str, data: object = None, json_payload: dict = None
     ) -> requests.Response:

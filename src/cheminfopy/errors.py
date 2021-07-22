@@ -6,6 +6,7 @@ __all__ = [
     "InvalidSourceError",
     "AuthenticationError",
     "InvalidInstanceUrlError",
+    "RequestFailed",
 ]
 
 
@@ -23,3 +24,7 @@ class AuthenticationError(ValueError):
 
 class InvalidInstanceUrlError(ValueError):
     """Raised if the provided instance URL seems invalid"""
+
+
+class RequestFailed(ValueError):
+    """Raised if the request failed"""

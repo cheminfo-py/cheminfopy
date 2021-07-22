@@ -6,7 +6,7 @@ from urllib.parse import urljoin
 from ..constants import VALID_DATA_TYPES
 from ..errors import InvalidAttachmentTypeError
 from .manager import Manager
-from .utils import _new_toc
+from .utils import _new_toc, test_upload
 
 __all__ = ["Sample"]
 
@@ -55,7 +55,7 @@ class Sample(Manager):
             metadata (str): Metadata dictionary. Please follow the schema at
                 https://cheminfo.github.io/data_schema/.
                 For example, for gas adsorption isotherms you might want
-                to add the keys 'gas' and 'temperature'.
+                to add the keys 'adsorptive' and 'temperature'.
                 Defaults to None.
             source_info (Union[dict, None], optional):
                 You can provide a dictionary with source information.
@@ -78,10 +78,13 @@ class Sample(Manager):
             )
         query_path = f"entry/{self.sample_uuid}/spectra/{data_type}/{file_name}"
         url = urljoin(self.instance, query_path)
-        self.requester.put(url, data=file_content)
-        # ToDo: handle the case that any of the requests failed, i.e.,
-        #  make GET to check that sample is there
+
         new_toc = _new_toc(self.toc, data_type, file_name, metadata, source_info)
+
+        self.requester.put(url, data=file_content)
+        # Fail and do not update the TOC in case we cannot find the file
+        test_upload(url, self.requester)
+
         self._update_toc(new_toc)
 
     def get_data(self, data_type: str, file_name: str):

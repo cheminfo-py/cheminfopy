@@ -8,7 +8,7 @@ from urllib.parse import urljoin
 import requests
 
 from ..constants import DEFAULT_SOURCE_DICT
-from ..errors import InvalidInstanceUrlError, InvalidSourceError
+from ..errors import InvalidInstanceUrlError, InvalidSourceError, RequestFailed
 
 
 def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
@@ -74,3 +74,12 @@ def sanitize_instance_url(url: str) -> str:
         raise InvalidInstanceUrlError("Testing the instance URL failed") from execpt
 
     return url
+
+
+def test_upload(url, requester):
+    response = requester.get(url)
+    if not response.status_code == 200:
+        raise RequestFailed(
+            "Unexpected error occured in the upload process.\
+             Check the ELN for data corruption!"
+        )
