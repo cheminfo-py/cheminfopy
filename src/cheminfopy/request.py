@@ -75,7 +75,7 @@ class ELNRequest:
         Returns:
             [requests.Response]: Response of the request
         """
-        if json is not None:
+        if json_payload is not None:
             response = self._make_request("PUT", url, json=json_payload)
         else:
             response = self._make_request("PUT", url, data=data)

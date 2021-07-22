@@ -79,7 +79,8 @@ class Sample(Manager):
         query_path = f"entry/{self.sample_uuid}/spectra/{data_type}/{file_name}"
         url = urljoin(self.instance, query_path)
         self.requester.put(url, data=file_content)
-        # ToDo: handle the case that any of the requests failed
+        # ToDo: handle the case that any of the requests failed, i.e.,
+        #  make GET to check that sample is there
         new_toc = _new_toc(self.toc, data_type, file_name, metadata, source_info)
         self._update_toc(new_toc)
 
@@ -129,8 +130,13 @@ class Sample(Manager):
         return False
 
     @property
-    def id(self):  # pylint: disable=invalid-name
+    def uuid(self):
         """UUID of the sample"""
+        return self.sample_uuid
+
+    @property
+    def id(self):  # pylint: disable=invalid-name
+        """ID of the sample"""
         return self.toc["_id"]
 
     @property

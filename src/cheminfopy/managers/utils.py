@@ -27,7 +27,8 @@ def _new_toc(toc, dtype, filename, metadata=None, source_dict=None):
                 raise InvalidSourceError("Source values must be strings")
 
     extension = str(Path(filename).suffix).replace(".", "")
-    # ToDo: handle empty string, maybe with exception
+    if extension == "":
+        raise ValueError("You need to provide a file extension")
 
     append_dict = {
         "source": source_dict,
