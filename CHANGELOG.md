@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.6.0...v0.7.0) (2021-07-23)
+
+
+### Features
+
+* renaming kwargs ([bf86e91](https://www.github.com/cheminfo-py/cheminfopy/commit/bf86e91013f080f0c1e5ec5a7f8cbe386a79cb13))
+* renaming kwargs ([1024d13](https://www.github.com/cheminfo-py/cheminfopy/commit/1024d13e12daa70cc5982c32ce932db5136387a6))
+
+
+### Bug Fixes
+
+* bump modification data upon toc update ([ad41285](https://www.github.com/cheminfo-py/cheminfopy/commit/ad41285aa0c238d3bc8df377490d49e35742b78d))
+* check for json payload ([bcf0ea5](https://www.github.com/cheminfo-py/cheminfopy/commit/bcf0ea55d60d3b3e7085be75002c0e836b432b45))
+* check for json payload ([dd14782](https://www.github.com/cheminfo-py/cheminfopy/commit/dd14782d57ba36159786a2ab3c1c484aef29054d))
+* data type in TOC update ([62fca0d](https://www.github.com/cheminfo-py/cheminfopy/commit/62fca0def90e5bdde87bdc657427974e2441a030))
+
 ## [0.6.0](https://www.github.com/cheminfo-py/cheminfopy/compare/v0.5.1...v0.6.0) (2021-07-20)
 
 
