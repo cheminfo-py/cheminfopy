@@ -20,7 +20,7 @@ jupyterlab = "^3.3.0"
 Sphinx = "^3.5.1"
 sphinx-book-theme = "^0.1.1"
 sphinx-autodoc-typehints = "^1.11.1"
-sphinx-copybutton = "^0.3.1"
+sphinx-copybutton = "^0.5.0"
 pylint = "^2.10.2"
 twine = "^3.4.2"
 
