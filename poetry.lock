@@ -939,7 +939,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pydata-sphinx-theme"
-version = "0.6.3"
+version = "0.7.2"
 description = "Bootstrap-based Sphinx theme from the PyData community"
 category = "dev"
 optional = false
@@ -947,12 +947,12 @@ python-versions = ">=3.5"
 
 [package.dependencies]
 beautifulsoup4 = "*"
-docutils = "<0.17"
+docutils = "!=0.17.0"
 sphinx = "*"
 
 [package.extras]
-coverage = ["pytest-cov", "codecov", "sphinx", "numpydoc", "recommonmark", "pandas", "pytest", "pytest-regressions", "beautifulsoup4", "jupyter-sphinx", "plotly", "numpy", "xarray", "docutils (==0.16)"]
-test = ["sphinx", "numpydoc", "recommonmark", "pandas", "pytest", "pytest-regressions", "beautifulsoup4", "jupyter-sphinx", "plotly", "numpy", "xarray", "docutils (==0.16)"]
+coverage = ["pytest-cov", "codecov", "sphinx", "numpydoc", "recommonmark", "pandas", "pytest", "pytest-regressions", "beautifulsoup4", "sphinx-sitemap", "jupyter-sphinx", "plotly", "numpy", "xarray", "docutils (==0.16)"]
+test = ["sphinx", "numpydoc", "recommonmark", "pandas", "pytest", "pytest-regressions", "beautifulsoup4", "sphinx-sitemap", "jupyter-sphinx", "plotly", "numpy", "xarray", "docutils (==0.16)"]
 
 [[package]]
 name = "pygments"
@@ -1229,25 +1229,24 @@ type_comments = ["typed-ast (>=1.4.0)"]
 
 [[package]]
 name = "sphinx-book-theme"
-version = "0.1.1"
-description = "Jupyter Book: Create an online book with Jupyter Notebooks"
+version = "0.2.0"
+description = "A clean book theme for scientific explanations and documentation with Sphinx"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
 beautifulsoup4 = ">=4.6.1,<5"
-click = "*"
-docutils = ">=0.15"
-pydata-sphinx-theme = ">=0.6.0,<0.7.0"
+docutils = ">=0.15,<0.17"
+pydata-sphinx-theme = ">=0.7.2,<0.8.0"
 pyyaml = "*"
-sphinx = ">=2,<4"
+sphinx = ">=3,<5"
 
 [package.extras]
 code_style = ["pre-commit (>=2.7.0,<2.8.0)"]
 live-dev = ["sphinx-autobuild", "web-compile (>=0.2.1,<0.3.0)"]
-sphinx = ["folium", "numpy", "matplotlib", "ipywidgets", "pandas", "nbclient", "myst-nb (>=0.11.1,<0.12.0)", "sphinx-togglebutton (>=0.2.1)", "sphinx-copybutton", "plotly", "sphinxcontrib-bibtex (>=2.2,<3.0)", "sphinx-thebe", "ablog (>=0.10.13,<0.11.0)", "sphinxext-opengraph"]
-testing = ["myst-nb (>=0.11.1,<0.12.0)", "sphinx-thebe", "coverage", "pytest (>=6.0.1,<6.1.0)", "pytest-cov", "pytest-regressions (>=2.0.1,<2.1.0)"]
+sphinx = ["ablog (>=0.10.13,<0.11.0)", "ipywidgets", "folium", "numpy", "matplotlib", "myst-nb (>=0.13,<1.0)", "nbclient", "pandas", "plotly", "sphinx (>=4.0,<5.0)", "sphinx-design", "sphinx-copybutton", "sphinx-togglebutton (>=0.2.1)", "sphinx-thebe", "sphinxcontrib-bibtex (>=2.2,<3.0)", "sphinxext-opengraph"]
+testing = ["coverage", "myst-nb (>=0.13,<1.0)", "pytest (>=6.0.1,<6.1.0)", "pytest-cov", "pytest-regressions (>=2.0.1,<2.1.0)", "sphinx-thebe"]
 
 [[package]]
 name = "sphinx-copybutton"
@@ -1532,7 +1531,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "f1856088301d5038a1ed8c703c29908f996f7c5a2a6521341e12352adc9bda66"
+content-hash = "4d12e3f5bd55f1cf098d7334b41b49d8c5a375135df00f7ba86e1a17ce47773f"
 
 [metadata.files]
 alabaster = [
@@ -2011,8 +2010,8 @@ pycparser = [
     {file = "pycparser-2.20.tar.gz", hash = "sha256:2d475327684562c3a96cc71adf7dc8c4f0565175cf86b6d7a404ff4c771f15f0"},
 ]
 pydata-sphinx-theme = [
-    {file = "pydata-sphinx-theme-0.6.3.tar.gz", hash = "sha256:32e0580ef985734d652eec2bf25e0995a330a9d4f76deaa353571ce8e180ab14"},
-    {file = "pydata_sphinx_theme-0.6.3-py3-none-any.whl", hash = "sha256:f0fee20dc33fa5efa6b9be57368be760d236d8b9c1486b14ad1d17b7e7e0db04"},
+    {file = "pydata-sphinx-theme-0.7.2.tar.gz", hash = "sha256:671df35fcdd290eafbd23d0595e6d359dbe90b2e64e6c3f4dc88276eed4a065e"},
+    {file = "pydata_sphinx_theme-0.7.2-py3-none-any.whl", hash = "sha256:bc1abc45e103b254c6c7a8f2ddabbaf8aa1f0817d85cae65dd163dd554c52700"},
 ]
 pygments = [
     {file = "Pygments-2.9.0-py3-none-any.whl", hash = "sha256:d66e804411278594d764fc69ec36ec13d9ae9147193a1740cd34d272ca383b8e"},
@@ -2198,8 +2197,8 @@ sphinx-autodoc-typehints = [
     {file = "sphinx_autodoc_typehints-1.12.0-py3-none-any.whl", hash = "sha256:5e81776ec422dd168d688ab60f034fccfafbcd94329e9537712c93003bddc04a"},
 ]
 sphinx-book-theme = [
-    {file = "sphinx-book-theme-0.1.1.tar.gz", hash = "sha256:0b182939df1711b5af74b26af74884a12f7de75a0dc6b24bdeb28d715c4935da"},
-    {file = "sphinx_book_theme-0.1.1-py3-none-any.whl", hash = "sha256:4af4a37be7fe7d5f4d989416c0ea46476201aaaa513cd8faf341cb691eef0735"},
+    {file = "sphinx-book-theme-0.2.0.tar.gz", hash = "sha256:9f9762f2c6372e7ebaac905707628efe80386d3e5160945d8965d309aeed940d"},
+    {file = "sphinx_book_theme-0.2.0-py3-none-any.whl", hash = "sha256:4247c7fb938da804dda6a92b617c65eb44a10838ba891b62ddfeb8da4d934554"},
 ]
 sphinx-copybutton = [
     {file = "sphinx-copybutton-0.5.0.tar.gz", hash = "sha256:a0c059daadd03c27ba750da534a92a63e7a36a7736dcf684f26ee346199787f6"},
