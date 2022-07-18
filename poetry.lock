@@ -1275,7 +1275,7 @@ type_comments = ["typed-ast (>=1.4.0)"]
 
 [[package]]
 name = "sphinx-book-theme"
-version = "0.3.2"
+version = "0.3.3"
 description = "A clean book theme for scientific explanations and documentation with Sphinx"
 category = "dev"
 optional = false
@@ -1288,8 +1288,8 @@ sphinx = ">=3,<5"
 
 [package.extras]
 code_style = ["pre-commit (>=2.7.0,<2.8.0)"]
-doc = ["ablog (>=0.10.13,<0.11.0)", "ipywidgets", "folium", "numpy", "matplotlib", "numpydoc", "myst-nb (>=0.13,<1.0)", "nbclient", "pandas", "plotly", "sphinx (>=4.0,<5.0)", "sphinx-design", "sphinx-copybutton", "sphinx-tabs", "sphinx-togglebutton (>=0.2.1)", "sphinx-thebe (>=0.1.1)", "sphinxcontrib-bibtex (>=2.2,<3.0)", "sphinxcontrib-youtube", "sphinxext-opengraph"]
-test = ["beautifulsoup4 (>=4.6.1,<5)", "coverage", "myst_nb (>=0.13,<1.0)", "pytest (>=6.0.1,<6.1.0)", "pytest-cov", "pytest-regressions (>=2.0.1,<2.1.0)", "sphinx-thebe"]
+doc = ["ablog (>=0.10.13,<0.11.0)", "ipywidgets", "folium", "numpy", "matplotlib", "numpydoc", "myst-nb (>=0.13.2,<0.14.0)", "nbclient", "pandas", "plotly", "sphinx (>=4.0,<5.0)", "sphinx-design", "sphinx-examples", "sphinx-copybutton", "sphinx-tabs", "sphinx-togglebutton (>=0.2.1)", "sphinx-thebe (>=0.1.1)", "sphinxcontrib-bibtex (>=2.2,<3.0)", "sphinxcontrib-youtube", "sphinxext-opengraph"]
+test = ["beautifulsoup4 (>=4.6.1,<5)", "coverage", "myst-nb (>=0.13.2,<0.14.0)", "pytest (>=6.0.1,<6.1.0)", "pytest-cov", "pytest-regressions (>=2.0.1,<2.1.0)", "sphinx-thebe"]
 
 [[package]]
 name = "sphinx-copybutton"
@@ -1558,7 +1558,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "067a8ddc8da24d557ae331b7dbbddcfb8244717057227c44a4d121e18d61c88e"
+content-hash = "07476376800ccb33f5254045c2ba8bf43c250276cdfa6c710708da6392d28285"
 
 [metadata.files]
 alabaster = [
@@ -2236,8 +2236,8 @@ sphinx-autodoc-typehints = [
     {file = "sphinx_autodoc_typehints-1.12.0-py3-none-any.whl", hash = "sha256:5e81776ec422dd168d688ab60f034fccfafbcd94329e9537712c93003bddc04a"},
 ]
 sphinx-book-theme = [
-    {file = "sphinx_book_theme-0.3.2-py3-none-any.whl", hash = "sha256:4aed92f2ed9d27e002eac5dce1daa8eca42dd9e6464811533c569ee156a6f67d"},
-    {file = "sphinx_book_theme-0.3.2.tar.gz", hash = "sha256:182b5657a345f3bbb2c5b86da65db9b47e27de0ab406cda168142768645121f5"},
+    {file = "sphinx_book_theme-0.3.3-py3-none-any.whl", hash = "sha256:9685959dbbb492af005165ef1b9229fdd5d5431580ac181578beae3b4d012d91"},
+    {file = "sphinx_book_theme-0.3.3.tar.gz", hash = "sha256:0ec36208ff14c6d6bf8aee1f1f8268e0c6e2bfa3cef6e41143312b25275a6217"},
 ]
 sphinx-copybutton = [
     {file = "sphinx-copybutton-0.5.0.tar.gz", hash = "sha256:a0c059daadd03c27ba750da534a92a63e7a36a7736dcf684f26ee346199787f6"},
