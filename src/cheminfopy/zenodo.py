@@ -94,18 +94,23 @@ def _upload_to_zenodo(folder, deposition_number: int, token: str, sandbox: bool 
 
 
 
-def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sandbox: bool = True):
+def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sandbox: bool = True, delete_existing_files: bool = True):
     """Upload a cheminfo zip export to Zenodo.
+    Note that we assume that you already clicked on "new version" in the Zenodo UI.
 
     Args:
         extracted_zip_dir (str): Path to the extracted zip export
         deposition_number (int): Zenodo deposition number
         token (str): Zenodo access token
         sandbox (bool): Use the sandbox API
+        delete_existing_files (bool): Delete all files from the draft deposition before uploading
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         all_samples = _compile_samples(extracted_zip_dir)
         _make_clean_sample_dirs(all_samples, tmpdir)
+        if delete_existing_files:
+            depositions_url = f"https://sandbox.zenodo.org/api/deposit/depositions/{deposition_number}" if sandbox else f"https://zenodo.org/api/deposit/depositions/{deposition_number}"
+            delete_files_from_draft(depositions_url, token)
         _upload_to_zenodo(tmpdir, deposition_number, token, sandbox)
 
 
