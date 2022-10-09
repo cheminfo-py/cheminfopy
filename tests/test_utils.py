@@ -16,7 +16,4 @@ def test_sanitize_instance_url():
     with pytest.raises(InvalidInstanceUrlError):
         sanitize_instance_url("https://mydb.cheminfo.org/db/eln")
 
-    assert (
-        sanitize_instance_url("https://mydb.cheminfo.org")
-        == "https://mydb.cheminfo.org/"
-    )
+    assert sanitize_instance_url("https://mydb.cheminfo.org") == "https://mydb.cheminfo.org/"

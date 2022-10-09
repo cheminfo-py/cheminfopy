@@ -61,9 +61,7 @@ def sanitize_instance_url(url: str) -> str:
     """
 
     if not (("http://" in url) or ("https://" in url)):
-        raise InvalidInstanceUrlError(
-            "Your instance URL must contain http:// or https://"
-        )
+        raise InvalidInstanceUrlError("Your instance URL must contain http:// or https://")
 
     if not url[-1] == "/":
         url += "/"

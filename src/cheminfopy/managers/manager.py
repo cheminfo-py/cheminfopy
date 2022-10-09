@@ -2,8 +2,8 @@
 """Base manager class"""
 from urllib.parse import urljoin
 
-from ..request import ELNRequest
 from .utils import sanitize_instance_url
+from ..request import ELNRequest
 
 __all__ = ["Manager"]
 

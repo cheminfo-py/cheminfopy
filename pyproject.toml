@@ -1,29 +1,18 @@
-[tool.poetry]
-name = "cheminfopy"
-version = "0.7.0"
-description = "cheminfopy is a SDK that provides a high-level interface to the rest-on-couch API that powers the cheminfo ELN"
-license = "MIT"
-readme = "README.md"
-homepage = "https://github.com/cheminfo-py/cheminfopy"
-repository = "https://github.com/cheminfo-py/cheminfopy"
-keywords = ["ELN", "API", "data", "chemistry"]
-authors = ["Kevin M. Jablonka <kevin.jablonka@epfl.ch>"]
-
-[tool.poetry.dependencies]
-python = "^3.7"
-
-[tool.poetry.dev-dependencies]
-pre-commit = "^2.20.0"
-black = "^22.6"
-isort = "^5.10.1"
-jupyterlab = "^3.4.8"
-Sphinx = "^3.5.1"
-sphinx-book-theme = "^0.3.2"
-sphinx-autodoc-typehints = "^1.11.1"
-sphinx-copybutton = "^0.5.0"
-pylint = "^2.13.7"
-twine = "^4.0.1"
-
+# See https://setuptools.readthedocs.io/en/latest/build_meta.html
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = [
+    "setuptools >= 35.0.2",
+    "setuptools_scm >= 2.0.0, <3"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ["py37", "py38", "py39"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 100
+include_trailing_comma = true
+reverse_relative = true
