@@ -63,3 +63,12 @@ Constants
     :members:
     :show-inheritance:
     :special-members:
+
+
+Zenodo
+...............
+
+.. automodule:: cheminfopy.zenodo
+    :members:
+    :show-inheritance:
+    :special-members:
