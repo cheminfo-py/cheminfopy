@@ -25,9 +25,7 @@ class User(Manager):
 
     def get_experiment(self, uuid: str):
         """Get a experiment object for an experiment UUID"""
-        return Experiment(
-            instance=self.instance, token=self.token, experiment_uuid=uuid
-        )
+        return Experiment(instance=self.instance, token=self.token, experiment_uuid=uuid)
 
     @property
     def is_valid_token(self):

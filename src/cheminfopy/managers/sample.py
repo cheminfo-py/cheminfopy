@@ -3,10 +3,10 @@
 from typing import Union
 from urllib.parse import urljoin
 
-from ..constants import VALID_DATA_TYPES
-from ..errors import InvalidAttachmentTypeError
 from .manager import Manager
 from .utils import _new_toc, test_upload
+from ..constants import VALID_DATA_TYPES
+from ..errors import InvalidAttachmentTypeError
 
 __all__ = ["Sample"]
 

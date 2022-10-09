@@ -38,9 +38,7 @@ class ELNRequest:
         # Todo: factor out
         handler = logging.StreamHandler()
         handler.setLevel(logging.DEBUG)
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        )
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
 
@@ -66,9 +64,7 @@ class ELNRequest:
         response = self._make_request("DELETE", url)
         return response
 
-    def put(
-        self, url: str, data: object = None, json_payload: dict = None
-    ) -> requests.Response:
+    def put(self, url: str, data: object = None, json_payload: dict = None) -> requests.Response:
         """Make a PUT request to the URL with the provided data
 
         Args:
