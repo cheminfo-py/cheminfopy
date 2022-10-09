@@ -9,8 +9,7 @@ from pathlib import Path
 
 import natsort
 import requests
-
-ACCESS_TOKEN = os.environ["ZENODO_ACCESS_TOKEN"]
+from loguru import logger
 
 
 def _make_clean_sample_dirs(sample_files, outdir):
@@ -65,7 +64,7 @@ def _upload_to_zenodo(folder, deposition_number: int, token: str, sandbox: bool 
 
     r = requests.put(
         f"{base_url}/api/deposit/depositions/{deposition_number}",
-        params={"access_token": ACCESS_TOKEN},
+        params={"access_token": token},
         data=json.dumps(data),
         headers=headers,
     )
@@ -108,3 +107,20 @@ def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sand
         all_samples = _compile_samples(extracted_zip_dir)
         _make_clean_sample_dirs(all_samples, tmpdir)
         _upload_to_zenodo(tmpdir, deposition_number, token, sandbox)
+
+
+def delete_files_from_draft(depositions_url, token): 
+    """Delete all files from a draft deposition.
+
+    Args:
+        depositions_url (str): URL to the draft deposition
+        token (str): Zenodo access token
+    """
+    r = requests.get(depositions_url, params={"access_token": token})
+    num_files = len(r.json()["files"])
+    logger.info(f"Deleting {num_files} files from {depositions_url}")
+    while num_files > 0:
+        for file in r.json()['files']:
+            requests.delete(file["links"]["self"], params={"access_token": token})
+        r = requests.get(depositions_url, params={"access_token": token})
+        num_files = len(r.json()["files"])
