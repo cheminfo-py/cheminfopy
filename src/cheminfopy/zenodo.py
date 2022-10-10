@@ -6,13 +6,14 @@ import tempfile
 import time
 from glob import glob
 from pathlib import Path
+from typing import Callable, Optional
 
 import natsort
 import requests
 from loguru import logger
 
 
-def _make_clean_sample_dirs(sample_files, outdir):
+def _make_clean_sample_dirs(sample_files, outdir, sample_json_callback: Optional[Callable] = None):
     toc = []
     if not os.path.exists(outdir):
         os.makedirs(outdir)
@@ -30,6 +31,8 @@ def _make_clean_sample_dirs(sample_files, outdir):
         with open(index, "r") as handle:
             d = json.load(handle)
             d.update(d["$content"])
+            if sample_json_callback is not None:
+                d = sample_json_callback(d)
 
         with open(os.path.join(Path(index).parent, "index.json"), "w") as handle:
             json.dump(d, handle)
@@ -49,18 +52,21 @@ def _upload_to_zenodo(folder, deposition_number: int, token: str, sandbox: bool 
     headers = {"Content-Type": "application/json"}
     base_url = "https://sandbox.zenodo.org" if sandbox else "https://zenodo.org"
 
-    r = requests.get(
-        f"{base_url}/api/deposit/depositions/{deposition_number}", params=params, json={}
-    )
-    metadata = r.json()["metadata"]
-    sandbox_string = "&sandbox={sandbox}" if sandbox else ""
-    metadata[
-        "description"
-    ] = f'<p>Visualize the data in this dataset: <a href="https://www.c6h6.org/zenodo/record/?id={deposition_number}{sandbox_string}">open entry</a>.</p>'
+    try:
+        r = requests.get(
+            f"{base_url}/api/deposit/depositions/{deposition_number}", params=params, json={}
+        )
+        metadata = r.json()["metadata"]
+        sandbox_string = "&sandbox={sandbox}" if sandbox else ""
+        metadata[
+            "description"
+        ] = f'<p>Visualize the data in this dataset: <a href="https://www.c6h6.org/zenodo/record/?id={deposition_number}{sandbox_string}">open entry</a>.</p>'
 
-    data = {"metadata": metadata}
+        data = {"metadata": metadata}
 
-    new_version = r.json()["links"]["latest_draft"]
+        new_version = r.json()["links"]["latest_draft"]
+    except Exception as e:
+        logger.exception(e)
 
     r = requests.put(
         f"{base_url}/api/deposit/depositions/{deposition_number}",
@@ -94,7 +100,7 @@ def _upload_to_zenodo(folder, deposition_number: int, token: str, sandbox: bool 
 
 
 
-def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sandbox: bool = True, delete_existing_files: bool = True):
+def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sandbox: bool = True, delete_existing_files: bool = True, sample_json_callback: Optional[Callable] = None):
     """Upload a cheminfo zip export to Zenodo.
     Note that we assume that you already clicked on "new version" in the Zenodo UI.
 
@@ -104,13 +110,18 @@ def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sand
         token (str): Zenodo access token
         sandbox (bool): Use the sandbox API
         delete_existing_files (bool): Delete all files from the draft deposition before uploading
+        sample_json_callback (Callable): Callback function to modify the sample.json file before uploading
     """
     with tempfile.TemporaryDirectory() as tmpdir:
+        logger.debug(f"Using temporary directory {tmpdir} to compile samples")
         all_samples = _compile_samples(extracted_zip_dir)
-        _make_clean_sample_dirs(all_samples, tmpdir)
+        _make_clean_sample_dirs(all_samples, tmpdir, sample_json_callback)
+        logger.debug(f"Done compiling samples")
         if delete_existing_files:
+            logger.debug(f"Deleting existing files from Zenodo draft")
             depositions_url = f"https://sandbox.zenodo.org/api/deposit/depositions/{deposition_number}" if sandbox else f"https://zenodo.org/api/deposit/depositions/{deposition_number}"
             delete_files_from_draft(depositions_url, token)
+        logger.debug(f"Uploading to Zenodo")
         _upload_to_zenodo(tmpdir, deposition_number, token, sandbox)
 
 
@@ -121,11 +132,20 @@ def delete_files_from_draft(depositions_url, token):
         depositions_url (str): URL to the draft deposition
         token (str): Zenodo access token
     """
-    r = requests.get(depositions_url, params={"access_token": token})
+    try:
+        r = requests.get(depositions_url, params={"access_token": token})
+    except Exception as e:
+        logger.exception(f'Could not get draft deposition due to {e}')
     num_files = len(r.json()["files"])
     logger.info(f"Deleting {num_files} files from {depositions_url}")
     while num_files > 0:
         for file in r.json()['files']:
-            requests.delete(file["links"]["self"], params={"access_token": token})
-        r = requests.get(depositions_url, params={"access_token": token})
+            try:
+                requests.delete(file["links"]["self"], params={"access_token": token})
+            except Exception as e:
+                logger.exception(f"Error deleting file {file['links']['self']} with error {e}")
+        try:
+            r = requests.get(depositions_url, params={"access_token": token})
+        except Exception as e:
+            logger.exception(f"Error getting draft with error {e}")
         num_files = len(r.json()["files"])
