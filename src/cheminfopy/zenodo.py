@@ -12,6 +12,8 @@ import natsort
 import requests
 from loguru import logger
 
+_ZENODO_TIMEOUT = os.getenv("ZENODO_TIMEOUT", 0.2)
+
 
 def _make_clean_sample_dirs(sample_files, outdir, sample_json_callback: Optional[Callable] = None):
     toc = []
@@ -96,11 +98,17 @@ def _upload_to_zenodo(folder, deposition_number: int, token: str, sandbox: bool 
                 params=params,
             )
         r.json()
-        time.sleep(1)
+        time.sleep(_ZENODO_TIMEOUT)
 
 
-
-def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sandbox: bool = True, delete_existing_files: bool = True, sample_json_callback: Optional[Callable] = None):
+def upload_to_zenodo(
+    extracted_zip_dir,
+    deposition_number: int,
+    token: str,
+    sandbox: bool = True,
+    delete_existing_files: bool = True,
+    sample_json_callback: Optional[Callable] = None,
+):
     """Upload a cheminfo zip export to Zenodo.
     Note that we assume that you already clicked on "new version" in the Zenodo UI.
 
@@ -119,13 +127,17 @@ def upload_to_zenodo(extracted_zip_dir, deposition_number: int, token: str, sand
         logger.debug(f"Done compiling samples")
         if delete_existing_files:
             logger.debug(f"Deleting existing files from Zenodo draft")
-            depositions_url = f"https://sandbox.zenodo.org/api/deposit/depositions/{deposition_number}" if sandbox else f"https://zenodo.org/api/deposit/depositions/{deposition_number}"
+            depositions_url = (
+                f"https://sandbox.zenodo.org/api/deposit/depositions/{deposition_number}"
+                if sandbox
+                else f"https://zenodo.org/api/deposit/depositions/{deposition_number}"
+            )
             delete_files_from_draft(depositions_url, token)
         logger.debug(f"Uploading to Zenodo")
         _upload_to_zenodo(tmpdir, deposition_number, token, sandbox)
 
 
-def delete_files_from_draft(depositions_url, token): 
+def delete_files_from_draft(depositions_url, token):
     """Delete all files from a draft deposition.
 
     Args:
@@ -135,17 +147,21 @@ def delete_files_from_draft(depositions_url, token):
     try:
         r = requests.get(depositions_url, params={"access_token": token})
     except Exception as e:
-        logger.exception(f'Could not get draft deposition due to {e}')
-    num_files = len(r.json()["files"])
+        logger.exception(f"Could not get draft deposition due to {e}")
+    files = r.json()["files"]
+    num_files = len(files)
     logger.info(f"Deleting {num_files} files from {depositions_url}")
     while num_files > 0:
-        for file in r.json()['files']:
+        for file in files:
             try:
                 requests.delete(file["links"]["self"], params={"access_token": token})
             except Exception as e:
                 logger.exception(f"Error deleting file {file['links']['self']} with error {e}")
+
+            time.sleep(_ZENODO_TIMEOUT)
         try:
             r = requests.get(depositions_url, params={"access_token": token})
         except Exception as e:
             logger.exception(f"Error getting draft with error {e}")
-        num_files = len(r.json()["files"])
+        files = r.json()["files"]
+        num_files = len(files)
