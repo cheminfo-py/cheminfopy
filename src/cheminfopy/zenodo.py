@@ -12,7 +12,7 @@ import natsort
 import requests
 from loguru import logger
 
-_ZENODO_TIMEOUT = os.getenv("ZENODO_TIMEOUT", 0.2)
+_ZENODO_TIMEOUT = os.getenv("ZENODO_TIMEOUT", 0.3)
 
 
 def _make_clean_sample_dirs(sample_files, outdir, sample_json_callback: Optional[Callable] = None):
@@ -161,7 +161,8 @@ def delete_files_from_draft(depositions_url, token):
             time.sleep(_ZENODO_TIMEOUT)
         try:
             r = requests.get(depositions_url, params={"access_token": token})
+            files = r.json()["files"]
+            num_files = len(files)
         except Exception as e:
             logger.exception(f"Error getting draft with error {e}")
-        files = r.json()["files"]
-        num_files = len(files)
+        time.sleep(_ZENODO_TIMEOUT * 2)
