@@ -51,7 +51,7 @@ Before you can perform any query, you need to initialize a :py:class:`~cheminfop
     from cheminfopy import Sample
 
     # you need to initialize the sample manager with the ELN instance, the UUID of a sample and a token
-    my_sample_manager = Sample(instance='https://mydb.cheminfo.org/db', sample_uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
+    my_sample_manager = Sample(instance='https://mydb.cheminfo.org/', sample_uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
 
 There are a view pieces of information that you need to get from the ELN for that:
 
@@ -108,3 +108,21 @@ Global access to the ELN
 ---------------------------
 
 If you have a user token, you can use the :py:obj:`~cheminfopy.managers.user.User` class. With the :py:func:`~cheminfopy.managers.user.User.get_sample` method you can get a :py:obj:`~cheminfopy.managers.sample.Sample` object given a :code:`UUID` of a sample.
+
+
+Basic interactions with a reaction
+-----------------------------------
+
+Initialization of :py:class:`~cheminfopy.managers.experiment.Experiment`
+...........................................................................
+
+Before you can perform any query, you need to initialize a :py:class:`~cheminfopy.managers.experiment.Experiment`.
+
+.. code-block:: python
+
+    from cheminfopy import Experiment
+
+    # you need to initialize the experiment manager with the ELN instance, the UUID of an experiment and a token
+    my_experiment_manager = Experiment(instance='https://mydb.cheminfo.org', experiment_uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
+
+You can then access the main properties of the reaction using properties, e.g. :py:attr:`my_experiment_manager.reactionRXN`.
