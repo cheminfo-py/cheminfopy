@@ -126,3 +126,9 @@ Before you can perform any query, you need to initialize a :py:class:`~cheminfop
     my_experiment_manager = Experiment(instance='https://mydb.cheminfo.org', experiment_uuid='ca5915318397af313e55b3181f7b3a1c', token='TJyOgqRYyDusBmbGytvbNhTvgC3q5mfdg')
 
 You can then access the main properties of the reaction using properties, e.g. :py:attr:`my_experiment_manager.reactionRXN`.
+
+
+What reactions and samples do I have access to?
+-----------------------------------------------
+
+To get a "table of contents" overview of the samples and reactions that you have access to, you can use the :py:func:`~cheminfopy.managers.user.User.get_sample_toc` and :py:func:`~cheminfopy.managers.user.User.get_experiment_toc` methods.
