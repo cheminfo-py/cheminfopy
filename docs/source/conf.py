@@ -15,7 +15,6 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath("../../src"))
-from cheminfopy import __version__
 
 # -- Project information -----------------------------------------------------
 
@@ -24,7 +23,7 @@ copyright = "2021, Kevin Maik Jablonka"
 author = "Kevin Maik Jablonka"
 
 # The full version, including alpha/beta/rc tags
-release = __version__
+release = '0.0.1-dev'
 
 
 # -- General configuration ---------------------------------------------------
