@@ -23,7 +23,7 @@ copyright = "2021, Kevin Maik Jablonka"
 author = "Kevin Maik Jablonka"
 
 # The full version, including alpha/beta/rc tags
-release = "0.0.1-dev"
+release = "0.0.1"
 
 
 # -- General configuration ---------------------------------------------------
