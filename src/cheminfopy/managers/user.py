@@ -19,6 +19,12 @@ class User(Manager):
         url = urljoin(self.instance, query_path)
         return self.requester.get(url)
 
+    def get_experiment_toc(self):
+        """Returns the raw table of all experiments the user has access to"""
+        query_path = "_query/reactionToc"
+        url = urljoin(self.instance, query_path)
+        return self.requester.get(url)
+
     def get_sample(self, uuid: str):
         """Get a sample object for a sample UUID"""
         return Sample(instance=self._instance, token=self.token, sample_uuid=uuid)

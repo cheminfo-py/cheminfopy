@@ -41,6 +41,46 @@ class Experiment(Manager):
         return self.toc["_rev"]
 
     @property
+    def kind(self):
+        """Kind of the entry"""
+        return self.toc["$kind"]
+
+    @property
+    def title(self):
+        """Title of the reaction"""
+        return self.toc["$content"]["title"]
+
+    @property
+    def products(self):
+        """Products of the reaction"""
+        return self.toc["$content"]["products"]
+
+    @property
+    def reagents(self):
+        """Reagents of the reaction"""
+        return self.toc["$content"]["reagents"]
+
+    @property
+    def procedure(self):
+        """Procedure of the reaction"""
+        return self.toc["$content"]["procedure"]
+
+    @property
+    def reactionRXN(self):
+        """Reaction RXN file"""
+        return self.toc["$content"]["reactionRXN"]  
+
+    @property
+    def remarks(self):
+        """Remarks of the reaction"""
+        return self.toc["$content"]["remarks"]
+
+    @property
+    def date(self):
+        """Date of the experiment"""
+        return self.toc["$content"]["date"]
+
+    @property
     def owners(self):
         """Owners of the reaction"""
         return self.toc["$owners"]
